@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics;
-    using System.IO;
     using System.Threading.Tasks;
     using System.Windows.Input;
 
@@ -24,6 +23,11 @@
         private Song _selectedSong;
 
         /// <summary>
+        ///     All songs.
+        /// </summary>
+        private ObservableCollection<Song> _allSongs;
+
+        /// <summary>
         ///     Creates a new instance of the <see cref="HomeViewModel"/> class.
         /// </summary>
         public HomeViewModel()
@@ -32,36 +36,9 @@
             this.OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
 
             this.Songs = new ObservableCollection<Song>();
-            this.LoadSongsCommand = new Command(async () => await this.ExecuteLoadSongsCommand());
+            //this.LoadSongsCommand = new Command(async () => await this.ExecuteLoadSongsCommand());
 
             this.SongTapped = new Command<Song>(this.OnSongSelected);
-
-            if (Directory.Exists(Constants.AndroidMusicFolderPath))
-            {
-                try
-                {
-                    //bool isReadonly = Environment.MediaMountedReadOnly.Equals(Environment.ExternalStorageState);
-
-                    //string[] songFiles = Directory.GetFiles(Constants.AndroidMusicFolderPath);
-                    IEnumerable<string> test = Directory.EnumerateFiles(Constants.AndroidMusicFolderPath);
-
-                    //int id = 1;
-                    //foreach (string file in songFiles)
-                    //{
-                    //    Song song = new Song()
-                    //    {
-                    //        Id = id++,
-                    //        Name = file
-                    //    };
-
-                    //    this.Songs.Add(song);
-                    //}
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-            }
         }
 
         /// <summary>
@@ -69,20 +46,19 @@
         /// </summary>
         public ICommand OpenWebCommand { get; }
 
-        /// <summary>
-        ///     Gets the songs.
-        /// </summary>
-        public ObservableCollection<Song> Songs { get; }
+        ///// <summary>
+        /////     Gets the songs.
+        ///// </summary>
+        //public ObservableCollection<Song> Songs { get; }
 
         /// <summary>
-        ///     Gets the load songs command.
+        ///     Gets all songs.
         /// </summary>
-        public Command LoadSongsCommand { get; }
-
-        /// <summary>
-        ///     Gets the song tapped command.
-        /// </summary>
-        public Command<Song> SongTapped { get; }
+        public ObservableCollection<Song> Songs
+        {
+            get => this._allSongs;
+            set => this.SetProperty(ref this._allSongs, value);
+        }
 
         /// <summary>
         ///     Gets and sets the selected song.
@@ -98,16 +74,26 @@
         }
 
         /// <summary>
+        ///     Gets the load songs command.
+        /// </summary>
+        public Command LoadSongsCommand { get; }
+
+        /// <summary>
+        ///     Gets the song tapped command.
+        /// </summary>
+        public Command<Song> SongTapped { get; }
+
+        /// <summary>
         ///     Loads the songs.
         /// </summary>
         /// <returns>The <see cref="Task"/> that completed loading the songs.</returns>
-        async Task ExecuteLoadSongsCommand()
+        private async Task LoadAllSongs()
         {
             this.IsBusy = true;
 
             try
             {
-                this.Songs.Clear();
+                this._allSongs.Clear();
                 IEnumerable<Song> songs = await this.DataStore.GetAllSongsAsync();
                 foreach (Song song in songs)
                 {
@@ -127,18 +113,18 @@
         /// <summary>
         ///     Configures the view model when the form is appearing.
         /// </summary>
-        public void OnAppearing()
+        internal async Task OnAppearing()
         {
             this.IsBusy = true;
             this.SelectedSong = null;
+            await this.LoadAllSongs();
         }
-
 
         /// <summary>
         ///     Handles when the song selected event is fired.
         /// </summary>
         /// <param name="song">The song.</param>
-        async void OnSongSelected(Song song)
+        private void OnSongSelected(Song song)
         {
             if (song == null)
             {

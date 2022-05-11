@@ -1,14 +1,14 @@
 ﻿namespace MusicPlayerMobile.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using MusicPlayerMobile.Models;
 
-    /// <inheritdoc cref="IDataStore{T}"/>
-    public class MockDataStore : IDataStore<Song>
+    /// <inheritdoc cref="ISongsRepo{T}"/>
+    public class MockDataStore /*: ISongsRepo<Song>*/
     {
         /// <summary>
         ///     The songs.
@@ -20,22 +20,16 @@
         /// </summary>
         public MockDataStore()
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            //using (System.IO.StreamReader streamReader = new System.IO.StreamReader("filename.txt"))
-            //{
-            //    string content = streamReader.ReadToEnd();
-            //    System.Diagnostics.Debug.WriteLine(content);
-            //}
         }
 
         /// <inheritdoc/>
-        public async Task<Song> GetSongAsync(int id)
+        public async Task<Song> GetSongAsync(int id, CancellationToken cancellationToken = default)
         {
             return await Task.FromResult(this._songs.FirstOrDefault(s => s.Id == id));
         }
 
         /// <inheritdoc/>
-        public async Task<IEnumerable<Song>> GetAllSongsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Song>> GetAllSongsAsync(bool forceRefresh = false, CancellationToken cancellationToken = default)
         {
             return await Task.FromResult(this._songs);
         }

@@ -18,7 +18,7 @@
         /// <summary>
         ///     The data store.
         /// </summary>
-        public IDataStore<Song> DataStore => DependencyService.Get<IDataStore<Song>>();
+        public ISongsRepo<Song> DataStore => DependencyService.Get<ISongsRepo<Song>>();
 
         /// <summary>
         ///     The is busy.

@@ -3,7 +3,7 @@
     /// <summary>
     ///     Constant values for mobile ease of use.
     /// </summary>
-    internal sealed class Constants
+    public sealed class Constants
     {
         /// <summary>
         ///     The android folder path for external music files.

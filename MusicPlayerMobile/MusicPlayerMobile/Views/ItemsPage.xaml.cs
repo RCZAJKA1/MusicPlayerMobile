@@ -1,34 +1,24 @@
 ﻿namespace MusicPlayerMobile.Views
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    using MusicPlayerMobile.Models;
     using MusicPlayerMobile.ViewModels;
-    using MusicPlayerMobile.Views;
 
     using Xamarin.Forms;
-    using Xamarin.Forms.Xaml;
 
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel _viewModel;
+        readonly ItemsViewModel _viewModel;
 
         public ItemsPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            this.BindingContext = this._viewModel = new ItemsViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearing();
+            this._viewModel.OnAppearing();
         }
     }
 }
