@@ -1,15 +1,26 @@
 ﻿namespace MusicPlayerMobile.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    /// <summary>
+    ///     Handles operations against song data.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IDataStore<T>
     {
-        Task<bool> AddItemAsync(T item);
-        Task<bool> UpdateItemAsync(T item);
-        Task<bool> DeleteItemAsync(string id);
-        Task<T> GetItemAsync(string id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        /// <summary>
+        ///     Gets a single song by its identifier.
+        /// </summary>
+        /// <param name="id">The song identifier.</param>
+        /// <returns>The <see cref="Song"/>.</returns>
+        Task<T> GetSongAsync(int id);
+
+        /// <summary>
+        ///     Gets all songs from internal storage.
+        /// </summary>
+        /// <param name="forceRefresh">The force refresh.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> containing all songs.</returns>
+        Task<IEnumerable<T>> GetAllSongsAsync(bool forceRefresh = false);
     }
 }

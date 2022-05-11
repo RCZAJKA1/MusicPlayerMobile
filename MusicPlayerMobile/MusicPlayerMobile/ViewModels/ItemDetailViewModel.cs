@@ -1,10 +1,5 @@
 ﻿namespace MusicPlayerMobile.ViewModels
 {
-    using System;
-    using System.Diagnostics;
-    using System.Threading.Tasks;
-
-    using MusicPlayerMobile.Models;
 
     using Xamarin.Forms;
 
@@ -18,42 +13,20 @@
 
         public string Text
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => this.text;
+            set => this.SetProperty(ref this.text, value);
         }
 
         public string Description
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => this.description;
+            set => this.SetProperty(ref this.description, value);
         }
 
         public string ItemId
         {
-            get
-            {
-                return itemId;
-            }
-            set
-            {
-                itemId = value;
-                LoadItemId(value);
-            }
-        }
-
-        public async void LoadItemId(string itemId)
-        {
-            try
-            {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Failed to Load Item");
-            }
+            get => this.itemId;
+            set => this.itemId = value;
         }
     }
 }

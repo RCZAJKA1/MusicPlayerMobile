@@ -1,11 +1,6 @@
 ﻿namespace MusicPlayerMobile.ViewModels
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Windows.Input;
-
-    using MusicPlayerMobile.Models;
 
     using Xamarin.Forms;
 
@@ -16,28 +11,27 @@
 
         public NewItemViewModel()
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
+            this.CancelCommand = new Command(this.OnCancel);
             this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
+                (_, __) => this.SaveCommand.ChangeCanExecute();
         }
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(this.text)
+                && !String.IsNullOrWhiteSpace(this.description);
         }
 
         public string Text
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => this.text;
+            set => this.SetProperty(ref this.text, value);
         }
 
         public string Description
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => this.description;
+            set => this.SetProperty(ref this.description, value);
         }
 
         public Command SaveCommand { get; }
@@ -45,21 +39,6 @@
 
         private async void OnCancel()
         {
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
-        }
-
-        private async void OnSave()
-        {
-            Item newItem = new Item()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
-            };
-
-            await DataStore.AddItemAsync(newItem);
-
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }

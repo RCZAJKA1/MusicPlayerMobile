@@ -1,5 +1,6 @@
 ﻿namespace MusicPlayerMobile.Views
 {
+    using MusicPlayerMobile.ViewModels;
 
     using Xamarin.Forms;
 
@@ -8,6 +9,7 @@
         public HomePage()
         {
             this.InitializeComponent();
+            this.BindingContext = new HomeViewModel();
         }
     }
 }

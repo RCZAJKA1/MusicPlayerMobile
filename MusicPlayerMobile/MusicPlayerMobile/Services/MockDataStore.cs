@@ -7,55 +7,37 @@
 
     using MusicPlayerMobile.Models;
 
-    public class MockDataStore : IDataStore<Item>
+    /// <inheritdoc cref="IDataStore{T}"/>
+    public class MockDataStore : IDataStore<Song>
     {
-        readonly List<Item> items;
+        /// <summary>
+        ///     The songs.
+        /// </summary>
+        private readonly IEnumerable<Song> _songs;
 
+        /// <summary>
+        ///     Creates a new instance of the <see cref="MockDataStore"/> class.
+        /// </summary>
         public MockDataStore()
         {
-            items = new List<Item>()
-            {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "First item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Second item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Third item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fourth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Fifth item", Description="This is an item description." },
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Sixth item", Description="This is an item description." }
-            };
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            //using (System.IO.StreamReader streamReader = new System.IO.StreamReader("filename.txt"))
+            //{
+            //    string content = streamReader.ReadToEnd();
+            //    System.Diagnostics.Debug.WriteLine(content);
+            //}
         }
 
-        public async Task<bool> AddItemAsync(Item item)
+        /// <inheritdoc/>
+        public async Task<Song> GetSongAsync(int id)
         {
-            items.Add(item);
-
-            return await Task.FromResult(true);
+            return await Task.FromResult(this._songs.FirstOrDefault(s => s.Id == id));
         }
 
-        public async Task<bool> UpdateItemAsync(Item item)
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Song>> GetAllSongsAsync(bool forceRefresh = false)
         {
-            var oldItem = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(oldItem);
-            items.Add(item);
-
-            return await Task.FromResult(true);
-        }
-
-        public async Task<bool> DeleteItemAsync(string id)
-        {
-            var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
-            items.Remove(oldItem);
-
-            return await Task.FromResult(true);
-        }
-
-        public async Task<Item> GetItemAsync(string id)
-        {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
-        }
-
-        public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
-        {
-            return await Task.FromResult(items);
+            return await Task.FromResult(this._songs);
         }
     }
 }

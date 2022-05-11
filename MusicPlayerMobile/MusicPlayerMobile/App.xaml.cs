@@ -1,22 +1,19 @@
 ﻿namespace MusicPlayerMobile
 {
-    using System;
 
     using MusicPlayerMobile.Services;
-    using MusicPlayerMobile.Views;
 
     using Xamarin.Forms;
-    using Xamarin.Forms.Xaml;
 
     public partial class App : Application
     {
 
         public App()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            this.MainPage = new AppShell();
         }
 
         protected override void OnStart()
