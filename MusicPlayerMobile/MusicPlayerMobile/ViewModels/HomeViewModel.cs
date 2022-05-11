@@ -42,7 +42,7 @@
                 {
                     //bool isReadonly = Environment.MediaMountedReadOnly.Equals(Environment.ExternalStorageState);
 
-                    string[] songFiles = Directory.GetFiles(Constants.AndroidMusicFolderPath);
+                    //string[] songFiles = Directory.GetFiles(Constants.AndroidMusicFolderPath);
                     IEnumerable<string> test = Directory.EnumerateFiles(Constants.AndroidMusicFolderPath);
 
                     //int id = 1;
