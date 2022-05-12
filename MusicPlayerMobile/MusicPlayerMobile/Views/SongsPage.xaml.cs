@@ -30,10 +30,10 @@
         /// <summary>
         ///     Prepares the view model while the page is appearing.
         /// </summary>
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            await this.songsViewModel.OnAppearing();
+            this.songsViewModel.OnAppearing();
         }
 
         private async void ButtonClicked_GetFiles(object sender, EventArgs e)

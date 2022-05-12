@@ -101,7 +101,7 @@
         /// <summary>
         ///     Configures the view model when the form is appearing.
         /// </summary>
-        internal async Task OnAppearing()
+        internal void OnAppearing()
         {
             this.IsBusy = true;
             this.SelectedSong = null;
