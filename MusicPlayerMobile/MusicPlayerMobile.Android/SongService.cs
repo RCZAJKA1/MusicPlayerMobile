@@ -17,7 +17,7 @@ namespace MusicPlayerMobile
         /// <inheritdoc/>
         public async Task<IEnumerable<Song>> GetAllSongsAsync(CancellationToken cancellationToken = default)
         {
-            if (!Directory.Exists(Constants.AndroidMusicFolderPath))
+            if (!Directory.Exists(Constants.AndroidFolderPathMusic))
             {
                 return await Task.FromResult(new List<Song>());
             }
@@ -25,7 +25,7 @@ namespace MusicPlayerMobile
             cancellationToken.ThrowIfCancellationRequested();
 
             IList<Song> allSongs = new List<Song>();
-            IEnumerable<string> songFiles = Directory.EnumerateFiles(Constants.AndroidMusicFolderPath);
+            IEnumerable<string> songFiles = Directory.EnumerateFiles(Constants.AndroidFolderPathMusic);
             foreach (string songFile in songFiles)
             {
                 Song song = new Song

@@ -35,7 +35,7 @@
         /// <inheritdoc/>
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            this.TryToGetPermissions();
+            //this.TryToGetPermissions();
 
             base.OnCreate(savedInstanceState);
 
@@ -84,33 +84,33 @@
         /// </summary>
         private void GetPermissions()
         {
-            //if (this.CheckSelfPermission(ReadExternalStoragePermission) == (int)Permission.Granted)
-            //{
-            //    Toast.MakeText(this, "Read External Storage permission granted", ToastLength.Short).Show();
-            //    return;
-            //}
-
-            //if (this.ShouldShowRequestPermissionRationale(ReadExternalStoragePermission))
-            //{
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.SetTitle("Permissions Needed");
-            alert.SetMessage("READ permissions are required to retrieve song data from the device.");
-
-            alert.SetPositiveButton("Allow", (senderAlert, args) =>
+            if (this.CheckSelfPermission(ReadExternalStoragePermission) == (int)Permission.Granted)
             {
-                this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
-            });
+                Toast.MakeText(this, "Read External Storage permission granted", ToastLength.Short).Show();
+                return;
+            }
 
-            alert.SetNegativeButton("Deny", (senderAlert, args) =>
+            if (this.ShouldShowRequestPermissionRationale(ReadExternalStoragePermission))
             {
-                Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
-            });
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.SetTitle("Permissions Needed");
+                alert.SetMessage("READ permissions are required to retrieve song data from the device.");
 
-            Dialog dialog = alert.Create();
-            dialog.Show();
+                alert.SetPositiveButton("Allow", (senderAlert, args) =>
+                {
+                    this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
+                });
 
-            return;
-            //}
+                alert.SetNegativeButton("Deny", (senderAlert, args) =>
+                {
+                    Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
+                });
+
+                Dialog dialog = alert.Create();
+                dialog.Show();
+
+                return;
+            }
 
             //this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
         }

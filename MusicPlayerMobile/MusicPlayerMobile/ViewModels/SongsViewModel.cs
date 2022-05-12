@@ -105,7 +105,7 @@
         {
             this.IsBusy = true;
             this.SelectedSong = null;
-            await this.LoadAllSongs();
+            //await this.LoadAllSongs();
         }
 
         /// <summary>
