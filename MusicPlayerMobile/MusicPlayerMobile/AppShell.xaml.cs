@@ -2,8 +2,6 @@
 {
     using System;
 
-    using MusicPlayerMobile.Views;
-
     using Xamarin.Forms;
 
     public partial class AppShell : Shell
@@ -11,13 +9,13 @@
         public AppShell()
         {
             this.InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+
+            // Register routes for new pages
+            //Routing.RegisterRoute(nameof(NewPage), typeof(NewPage));
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Current.GoToAsync("//LoginPage");
         }
     }
 }

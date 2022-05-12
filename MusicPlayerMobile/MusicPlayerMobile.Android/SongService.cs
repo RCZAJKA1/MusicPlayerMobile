@@ -1,19 +1,21 @@
-﻿namespace MusicPlayerMobile.Droid
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+
+using MusicPlayerMobile;
+using MusicPlayerMobile.Models;
+using MusicPlayerMobile.Services;
+
+[assembly: Xamarin.Forms.Dependency(typeof(SongService))]
+namespace MusicPlayerMobile
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Threading;
-    using System.Threading.Tasks;
-
-    using MusicPlayerMobile.Models;
-    using MusicPlayerMobile.Services;
-
-    /// <inheritdoc cref="ISongsRepo{T}"/>
-    internal sealed class SongsRepo : ISongsRepo<Song>
+    /// <inheritdoc cref="ISongService"/>
+    public sealed class SongService : ISongService
     {
         /// <inheritdoc/>
-        public async Task<IEnumerable<Song>> GetAllSongsAsync(bool forceRefresh = false, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Song>> GetAllSongsAsync(CancellationToken cancellationToken = default)
         {
             if (!Directory.Exists(Constants.AndroidMusicFolderPath))
             {

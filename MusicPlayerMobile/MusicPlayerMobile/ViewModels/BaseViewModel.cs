@@ -5,7 +5,6 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
-    using MusicPlayerMobile.Models;
     using MusicPlayerMobile.Services;
 
     using Xamarin.Forms;
@@ -18,7 +17,7 @@
         /// <summary>
         ///     The data store.
         /// </summary>
-        public ISongsRepo<Song> DataStore => DependencyService.Get<ISongsRepo<Song>>();
+        public ISongService DataStore => DependencyService.Get<ISongService>();
 
         /// <summary>
         ///     The is busy.

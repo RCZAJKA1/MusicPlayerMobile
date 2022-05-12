@@ -25,7 +25,7 @@
         /// <summary>
         ///     The request stroage permission identifier.
         /// </summary>
-        private const int RequestExternalStoragePermissionId = 0;
+        private const int RequestExternalStoragePermissionId = 1;
 
         /// <summary>
         ///     The permissions.
@@ -53,13 +53,11 @@
                     {
                         if (grantResults[0] == (int)Permission.Granted)
                         {
-                            Toast.MakeText(this, "Special permissions granted", ToastLength.Short).Show();
+                            Toast.MakeText(this, "Permissions granted", ToastLength.Short).Show();
                         }
                         else
                         {
-                            //Permission Denied :(
-                            Toast.MakeText(this, "Special permissions denied", ToastLength.Short).Show();
-
+                            Toast.MakeText(this, "Permissions denied", ToastLength.Short).Show();
                         }
                     }
 
@@ -86,35 +84,35 @@
         /// </summary>
         private void GetPermissions()
         {
-            if (this.CheckSelfPermission(ReadExternalStoragePermission) == (int)Permission.Granted)
+            //if (this.CheckSelfPermission(ReadExternalStoragePermission) == (int)Permission.Granted)
+            //{
+            //    Toast.MakeText(this, "Read External Storage permission granted", ToastLength.Short).Show();
+            //    return;
+            //}
+
+            //if (this.ShouldShowRequestPermissionRationale(ReadExternalStoragePermission))
+            //{
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Permissions Needed");
+            alert.SetMessage("READ permissions are required to retrieve song data from the device.");
+
+            alert.SetPositiveButton("Allow", (senderAlert, args) =>
             {
-                Toast.MakeText(this, "Read External Storage permission granted", ToastLength.Short).Show();
-                return;
-            }
+                this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
+            });
 
-            if (this.ShouldShowRequestPermissionRationale(ReadExternalStoragePermission))
+            alert.SetNegativeButton("Deny", (senderAlert, args) =>
             {
-                //set alert for executing the task
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.SetTitle("Permissions Needed");
-                alert.SetMessage("The application need special permissions to continue");
-                alert.SetPositiveButton("Request Permissions", (senderAlert, args) =>
-                {
-                    this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
-                });
+                Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
+            });
 
-                alert.SetNegativeButton("Cancel", (senderAlert, args) =>
-                {
-                    Toast.MakeText(this, "Cancelled!", ToastLength.Short).Show();
-                });
+            Dialog dialog = alert.Create();
+            dialog.Show();
 
-                Dialog dialog = alert.Create();
-                dialog.Show();
+            return;
+            //}
 
-                return;
-            }
-
-            this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
+            //this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
         }
     }
 }

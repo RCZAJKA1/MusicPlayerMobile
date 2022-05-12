@@ -1,6 +1,5 @@
 ﻿namespace MusicPlayerMobile
 {
-    using MusicPlayerMobile.Services;
 
     using Xamarin.Forms;
 
@@ -17,7 +16,6 @@
         {
             this.InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
             this.MainPage = new AppShell();
         }
 
