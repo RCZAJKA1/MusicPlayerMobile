@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,13 +25,15 @@ namespace MusicPlayerMobile
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            IList<Song> allSongs = new List<Song>();
-            IEnumerable<string> songFiles = Directory.EnumerateFiles(Constants.AndroidFolderPathMusic);
-            foreach (string songFile in songFiles)
+            List<Song> allSongs = new List<Song>();
+            List<string> songFiles = Directory.EnumerateFiles(Constants.AndroidFolderPathMusic).ToList();
+            for (int i = 0; i < songFiles.Count; i++)
             {
+                string fileName = Path.GetFileName(songFiles[i]);
                 Song song = new Song
                 {
-                    Name = songFile
+                    Id = i,
+                    Name = fileName
                 };
 
                 allSongs.Add(song);

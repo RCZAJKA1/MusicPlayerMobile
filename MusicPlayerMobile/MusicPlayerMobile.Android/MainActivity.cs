@@ -35,7 +35,7 @@
         /// <inheritdoc/>
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            //this.TryToGetPermissions();
+            this.VerifyPermissions();
 
             base.OnCreate(savedInstanceState);
 
@@ -68,9 +68,9 @@
         }
 
         /// <summary>
-        ///     Get permissions if the SDK is greater than or equal to version 23.
+        ///     Verifies if permissions are needed.
         /// </summary>
-        private void TryToGetPermissions()
+        private void VerifyPermissions()
         {
             if ((int)Build.VERSION.SdkInt >= 23)
             {
@@ -80,13 +80,12 @@
         }
 
         /// <summary>
-        ///     Gets the permissions to access device data.
+        ///     Gets all required permissions to access the device data.
         /// </summary>
         private void GetPermissions()
         {
             if (this.CheckSelfPermission(ReadExternalStoragePermission) == (int)Permission.Granted)
             {
-                Toast.MakeText(this, "Read External Storage permission granted", ToastLength.Short).Show();
                 return;
             }
 
@@ -94,7 +93,7 @@
             {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this);
                 alert.SetTitle("Permissions Needed");
-                alert.SetMessage("READ permissions are required to retrieve song data from the device.");
+                alert.SetMessage("READ permissions are required to retrieve music from the device.");
 
                 alert.SetPositiveButton("Allow", (senderAlert, args) =>
                 {
@@ -111,8 +110,6 @@
 
                 return;
             }
-
-            //this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
         }
     }
 }

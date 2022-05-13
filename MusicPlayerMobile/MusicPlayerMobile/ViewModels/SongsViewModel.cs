@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using MusicPlayerMobile.Models;
@@ -11,8 +11,16 @@
 
     using Xamarin.Forms;
 
+    /// <summary>
+    ///     The songs view model.
+    /// </summary>
     public class SongsViewModel : BaseViewModel
     {
+        /// <summary>
+        ///     The song service.
+        /// </summary>
+        private readonly ISongService songService;
+
         /// <summary>
         ///     The selected song.
         /// </summary>
@@ -21,27 +29,23 @@
         /// <summary>
         ///     All songs.
         /// </summary>
-        private ObservableCollection<Song> _allSongs;
+        private List<Song> _allSongs;
 
+        /// <summary>
+        ///     Creates a new instance of the <see cref="SongsViewModel"/> class.
+        /// </summary>
         public SongsViewModel()
         {
             this.Title = "Songs";
-            //this.OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
-
-            this.Songs = new ObservableCollection<Song>();
-            //this.LoadSongsCommand = new Command(async () => await this.ExecuteLoadSongsCommand());
-
+            this.Songs = new List<Song>();
             this.SongTapped = new Command<Song>(this.OnSongSelected);
+            this.songService = DependencyService.Get<ISongService>();
         }
-        ///// <summary>
-        /////     Gets the songs.
-        ///// </summary>
-        //public ObservableCollection<Song> Songs { get; }
 
         /// <summary>
         ///     Gets all songs.
         /// </summary>
-        public ObservableCollection<Song> Songs
+        public List<Song> Songs
         {
             get => this._allSongs;
             set => this.SetProperty(ref this._allSongs, value);
@@ -71,7 +75,7 @@
         public Command<Song> SongTapped { get; }
 
         /// <summary>
-        ///     Loads the songs.
+        ///     Loads all songs from the device.
         /// </summary>
         /// <returns>The <see cref="Task"/> that completed loading the songs.</returns>
         private async Task LoadAllSongs()
@@ -80,13 +84,15 @@
 
             try
             {
-                this._allSongs.Clear();
-                ISongService songsRepo = DependencyService.Get<ISongService>();
-                IEnumerable<Song> songs = await songsRepo.GetAllSongsAsync();
-                foreach (Song song in songs)
+                if (this._allSongs.Any())
                 {
-                    this.Songs.Add(song);
+                    return;
                 }
+
+                this._allSongs.Clear();
+                IEnumerable<Song> songs = await this.songService.GetAllSongsAsync();
+                songs.OrderBy(x => x.Name);
+                this.Songs.AddRange(songs);
             }
             catch (Exception ex)
             {
@@ -101,11 +107,11 @@
         /// <summary>
         ///     Configures the view model when the form is appearing.
         /// </summary>
-        internal void OnAppearing()
+        internal async Task OnAppearing()
         {
             this.IsBusy = true;
             this.SelectedSong = null;
-            //await this.LoadAllSongs();
+            await this.LoadAllSongs();
         }
 
         /// <summary>
