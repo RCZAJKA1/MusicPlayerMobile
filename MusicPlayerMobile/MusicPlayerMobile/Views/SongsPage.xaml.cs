@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
 
     using MusicPlayerMobile.ViewModels;
 
@@ -68,7 +69,7 @@
                     this.Label_GetFiles.Text = "Path does not exist";
                 }
 
-                IEnumerable<string> songFiles = Directory.EnumerateFiles(Constants.AndroidFolderPathMusic);
+                List<string> songFiles = Directory.EnumerateFiles(Constants.AndroidFolderPathMusic).ToList();
             }
             catch (Exception ex)
             {
@@ -133,6 +134,8 @@
                 {
                     this.Label_WriteFile.Text = "Path does not exist";
                 }
+
+                File.WriteAllLines(Path.Combine(Constants.AndroidFolderPathDownloads, "testTxtFile.txt"), new[] { "This is a test sentence." });
             }
             catch (Exception ex)
             {
