@@ -1,7 +1,5 @@
 ﻿namespace MusicPlayerMobile.Models
 {
-    using System;
-
     public class Item
     {
         public string Id { get; set; }

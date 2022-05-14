@@ -1,32 +1,35 @@
 ﻿namespace MusicPlayerMobile
 {
-    using System;
-
-    using MusicPlayerMobile.Services;
-    using MusicPlayerMobile.Views;
 
     using Xamarin.Forms;
-    using Xamarin.Forms.Xaml;
 
+    /// <summary>
+    ///     The app.
+    /// </summary>
     public partial class App : Application
     {
 
+        /// <summary>
+        ///     Creates a new instance of the <see cref="App"/> class.
+        /// </summary>
         public App()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            this.MainPage = new AppShell();
         }
 
+        /// <inheritdoc/>
         protected override void OnStart()
         {
         }
 
+        /// <inheritdoc/>
         protected override void OnSleep()
         {
         }
 
+        /// <inheritdoc/>
         protected override void OnResume()
         {
         }

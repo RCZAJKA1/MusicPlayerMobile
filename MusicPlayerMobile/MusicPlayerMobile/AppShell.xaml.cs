@@ -1,25 +1,21 @@
 ﻿namespace MusicPlayerMobile
 {
     using System;
-    using System.Collections.Generic;
-
-    using MusicPlayerMobile.ViewModels;
-    using MusicPlayerMobile.Views;
 
     using Xamarin.Forms;
 
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShell : Shell
     {
         public AppShell()
         {
-            InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            this.InitializeComponent();
+
+            // Register routes for new pages
+            //Routing.RegisterRoute(nameof(NewPage), typeof(NewPage));
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
         }
     }
 }

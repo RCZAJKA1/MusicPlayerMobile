@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerMobile.Android", "MusicPlayerMobile\MusicPlayerMobile.Android\MusicPlayerMobile.Android.csproj", "{13C1FA81-4D62-487C-9080-EF1924C79A1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerMobile", "MusicPlayerMobile\MusicPlayerMobile\MusicPlayerMobile.csproj", "{F275EE76-A90A-4865-BC1D-4931269E2D14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPlayerMobile", "MusicPlayerMobile\MusicPlayerMobile\MusicPlayerMobile.csproj", "{F275EE76-A90A-4865-BC1D-4931269E2D14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
