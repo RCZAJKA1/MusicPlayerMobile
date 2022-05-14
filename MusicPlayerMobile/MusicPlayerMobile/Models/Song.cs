@@ -24,5 +24,10 @@
         ///     Gets and sets the length.
         /// </summary>
         public int Length { get; set; }
+
+        /// <summary>
+        ///     Gets and sets the file path.
+        /// </summary>
+        public string FilePath { get; set; }
     }
 }

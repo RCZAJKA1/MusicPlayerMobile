@@ -33,7 +33,8 @@ namespace MusicPlayerMobile
                 Song song = new Song
                 {
                     Id = i,
-                    Name = fileName
+                    Name = fileName,
+                    FilePath = songFiles[i]
                 };
 
                 allSongs.Add(song);

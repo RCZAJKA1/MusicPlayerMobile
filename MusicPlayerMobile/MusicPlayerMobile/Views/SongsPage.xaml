@@ -7,7 +7,7 @@
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
-        <vm:HomeViewModel />
+        <vm:SongsViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>
@@ -21,7 +21,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
         <CollectionView x:Name="SongsListView"
                         ItemsSource="{Binding Songs}"
                         SelectionMode="None">
@@ -31,10 +30,12 @@
                         <Label Text="{Binding Name}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
+                                        TextColor="Black"
                                         FontSize="16" />
                         <Label Text="{Binding Description}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
+                                        TextColor="Black"
                                         FontSize="13" />
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer

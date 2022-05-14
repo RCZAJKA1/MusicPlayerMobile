@@ -89,27 +89,48 @@
                 return;
             }
 
-            if (this.ShouldShowRequestPermissionRationale(ReadExternalStoragePermission))
-            {
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.SetTitle("Permissions Needed");
-                alert.SetMessage("READ permissions are required to retrieve music from the device.");
+            this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
 
-                alert.SetPositiveButton("Allow", (senderAlert, args) =>
-                {
-                    this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
-                });
+            //AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            //alert.SetTitle("Permissions Needed");
+            //alert.SetMessage("READ permissions are required to retrieve music from the device.");
 
-                alert.SetNegativeButton("Deny", (senderAlert, args) =>
-                {
-                    Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
-                });
+            //alert.SetPositiveButton("Allow", (senderAlert, args) =>
+            //{
+            //    this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
+            //});
 
-                Dialog dialog = alert.Create();
-                dialog.Show();
+            //alert.SetNegativeButton("Deny", (senderAlert, args) =>
+            //{
+            //    Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
+            //});
 
-                return;
-            }
+            //Dialog dialog = alert.Create();
+            //dialog.Show();
+
+            //if (this.ShouldShowRequestPermissionRationale(ReadExternalStoragePermission))
+            //{
+            //    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            //    alert.SetTitle("Permissions Needed");
+            //    alert.SetMessage("READ permissions are required to retrieve music from the device.");
+
+            //    alert.SetPositiveButton("Allow", (senderAlert, args) =>
+            //    {
+            //        this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
+            //    });
+
+            //    alert.SetNegativeButton("Deny", (senderAlert, args) =>
+            //    {
+            //        Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
+            //    });
+
+            //    Dialog dialog = alert.Create();
+            //    dialog.Show();
+
+            //    return;
+            //}
+
+            //this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
         }
     }
 }
