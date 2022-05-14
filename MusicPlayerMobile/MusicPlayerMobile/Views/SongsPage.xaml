@@ -17,37 +17,58 @@
     </ContentPage.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+        <Grid.RowDefinitions >
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!--This is to pad the app buttons row above the bottom device toolbar-->
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <!--Row 1 - Songs list-->
         <CollectionView x:Name="SongsListView"
                         ItemsSource="{Binding Songs}"
-                        SelectionMode="None">
+                        SelectionMode="None"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="3">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Song">
-                        <Label Text="{Binding Name}"
+                    <Frame Margin="-5" BorderColor="Black" BackgroundColor="LightGray" >
+                        <StackLayout x:DataType="model:Song">
+                            <Label Text="{Binding Name}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
                                         TextColor="Black"
                                         FontSize="16" />
-                        <Label Text="{Binding Description}"
+                            <Label Text="{Binding Description}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         TextColor="Black"
-                                        FontSize="13" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
+                                        FontSize="13" 
+                                        Margin="-6"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SongsViewModel}}, Path=SongTapped}"
                                             CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </Grid>
 
+        <!--Row 2 - Buttons-->
+        <Button x:Name="PrevButton" Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" BorderColor="Black" 
+                BorderWidth="2" CornerRadius="10" Clicked="PrevButton_Clicked" Margin="10"/>
+        <Button x:Name="PlayButton" Text="Play" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" BorderColor="Black" 
+                BorderWidth="2" CornerRadius="40" Clicked="PlayButton_Clicked" />
+        <Button x:Name="NextButton" Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="1" BorderColor="Black" 
+                BorderWidth="2" CornerRadius="10" Clicked="NextButton_Clicked" Margin="10"/>
+    </Grid>
 </ContentPage>
