@@ -69,7 +69,7 @@
                TextColor="Black" FontSize="15" Padding="10"/>
         <Button x:Name="PrevButton" Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Clicked="PrevButton_Clicked" Margin="10"/>
-        <Button x:Name="PlayButton" Text="Play" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+        <Button x:Name="PlayButton" ImageSource="baseline_play_arrow_black_18.png" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="40" Clicked="PlayButton_Clicked" />
         <Button x:Name="NextButton" Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Clicked="NextButton_Clicked" Margin="10"/>
