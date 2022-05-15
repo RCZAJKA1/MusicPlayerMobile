@@ -12,14 +12,6 @@
     public interface ISongService
     {
         /// <summary>
-        ///     Gets a single song by its identifier.
-        /// </summary>
-        /// <param name="id">The song identifier.</param>
-        /// <param name="cancellationToken">The cancellation token.</param>
-        /// <returns>The <see cref="Song"/>.</returns>
-        Task<Song> GetSongAsync(int id, CancellationToken cancellationToken = default);
-
-        /// <summary>
         ///     Gets all songs from internal storage.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>

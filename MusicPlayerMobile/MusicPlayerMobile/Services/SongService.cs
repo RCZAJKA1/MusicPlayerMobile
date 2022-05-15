@@ -20,20 +20,23 @@ namespace MusicPlayerMobile
         {
             if (!Directory.Exists(Constants.AndroidFolderPathMusic))
             {
-                return await Task.FromResult(new List<Song>());
+                throw new InvalidOperationException($"The directory '{Constants.AndroidFolderPathMusic}' does not exist.");
             }
 
             cancellationToken.ThrowIfCancellationRequested();
 
             List<Song> allSongs = new List<Song>();
             List<string> songFiles = Directory.EnumerateFiles(Constants.AndroidFolderPathMusic).ToList();
+            songFiles.Sort();
             for (int i = 0; i < songFiles.Count; i++)
             {
-                string fileName = Path.GetFileName(songFiles[i]);
+                string filePath = songFiles[i];
+                string fileName = Path.GetFileName(filePath);
+                string songNameWithArtist = Path.GetFileNameWithoutExtension(fileName);
                 Song song = new Song
                 {
                     Id = i,
-                    Name = fileName,
+                    Name = songNameWithArtist,
                     FilePath = songFiles[i]
                 };
 
@@ -41,12 +44,6 @@ namespace MusicPlayerMobile
             }
 
             return await Task.FromResult(allSongs);
-        }
-
-        /// <inheritdoc/>
-        public Task<Song> GetSongAsync(int id, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
         }
     }
 }
