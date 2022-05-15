@@ -21,14 +21,15 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <!--This is to pad the app buttons row above the bottom device toolbar-->
+            <RowDefinition Height="Auto" />
+            <!--Last row is to pad above the device bottom toolbar-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
+
         <!--Row 1 - Songs list-->
         <CollectionView x:Name="SongsListView"
                         ItemsSource="{Binding Songs}"
@@ -64,11 +65,13 @@
         </CollectionView>
 
         <!--Row 2 - Buttons-->
-        <Button x:Name="PrevButton" Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" BorderColor="Black" 
-                BorderWidth="2" CornerRadius="10" Clicked="PrevButton_Clicked" Margin="10"/>
-        <Button x:Name="PlayButton" Text="Play" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" BorderColor="Black" 
-                BorderWidth="2" CornerRadius="40" Clicked="PlayButton_Clicked" />
-        <Button x:Name="NextButton" Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="1" BorderColor="Black" 
-                BorderWidth="2" CornerRadius="10" Clicked="NextButton_Clicked" Margin="10"/>
+        <Label x:Name="NowPlayingLabel" Text="" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
+               TextColor="Black" FontSize="15" Padding="10"/>
+        <Button x:Name="PrevButton" Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="10" Clicked="PrevButton_Clicked" Margin="10"/>
+        <Button x:Name="PlayButton" Text="Play" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="40" Clicked="PlayButton_Clicked" />
+        <Button x:Name="NextButton" Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="10" Clicked="NextButton_Clicked" Margin="10"/>
     </Grid>
 </ContentPage>

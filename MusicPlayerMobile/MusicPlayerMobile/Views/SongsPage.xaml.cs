@@ -1,9 +1,7 @@
 ﻿namespace MusicPlayerMobile.Views
 {
     using System;
-    using System.Collections.Generic;
 
-    using MusicPlayerMobile.Models;
     using MusicPlayerMobile.ViewModels;
 
     using Xamarin.Forms;
@@ -11,7 +9,7 @@
     /// <summary>
     ///     The code behind for the page <see cref="SongsPage"/>.
     /// </summary>
-    public partial class SongsPage : ContentPage, ISongsPage
+    public partial class SongsPage : ContentPage
     {
         /// <summary>
         ///     The songs view model.
@@ -29,19 +27,13 @@
             this.songsViewModel = this.BindingContext as SongsViewModel;
         }
 
-        /// <inheritdoc />
-        public Song SelectedSong { get; set; }
-
-        /// <inheritdoc />
-        public List<int> SongHistory { get; set; }
-
         /// <summary>
         ///     Prepares the view model while the page is appearing.
         /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await this.songsViewModel.OnAppearing();
+            await this.songsViewModel.OnAppearingAsync();
         }
 
         /// <summary>
