@@ -6,8 +6,7 @@
        x:Class="MusicPlayerMobile.AppShell">
 
     <!--
-        The overall app visual hierarchy is defined here, along with navigation.
-    
+        The overall app visual hierarchy is defined here, along with navigation.    
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
     -->
 
@@ -78,11 +77,14 @@
         FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
-    <FlyoutItem Title="Home" Icon="icon_about.png">
-        <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Songs" Icon="icon_feed.png">
+    <FlyoutItem Title="Songs">
         <ShellContent Route="SongsPage" ContentTemplate="{DataTemplate local:SongsPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="Playlists">
+        <ShellContent Route="PlaylistsPage" ContentTemplate="{DataTemplate local:PlaylistsPage}" />
+    </FlyoutItem>
+    <FlyoutItem>
+        <ShellContent Route="CreatePlaylistPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate local:CreatePlaylistPage}"/>
     </FlyoutItem>
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
@@ -100,37 +102,39 @@
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>-->
 
-    <!-- Optional Templates 
-    // These may be provided inline as below or as separate classes.
+    
+    
+     <!--Optional Templates 
+     These may be provided inline as below or as separate classes.-->
 
-    // This header appears at the top of the Flyout.
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header
-    <Shell.FlyoutHeaderTemplate>
+     <!--This header appears at the top of the Flyout.
+     https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header-->
+    <!--<Shell.FlyoutHeaderTemplate>
         <DataTemplate>
             <Grid>ContentHere</Grid>
         </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
+    </Shell.FlyoutHeaderTemplate>-->
 
-    // ItemTemplate is for ShellItems as displayed in a Flyout
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance
-    <Shell.ItemTemplate>
+    <!--ItemTemplate is for ShellItems as displayed in a Flyout
+    https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance-->
+    <!--<Shell.ItemTemplate>
         <DataTemplate>
             <ContentView>
-                Bindable Properties: Title, Icon
+                
             </ContentView>
         </DataTemplate>
-    </Shell.ItemTemplate>
+    </Shell.ItemTemplate>-->
 
-    // MenuItemTemplate is for MenuItems as displayed in a Flyout
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance
-    <Shell.MenuItemTemplate>
+    <!--MenuItemTemplate is for MenuItems as displayed in a Flyout
+    https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance-->
+    <!--<Shell.MenuItemTemplate>
         <DataTemplate>
             <ContentView>
                 Bindable Properties: Text, Icon
             </ContentView>
         </DataTemplate>
-    </Shell.MenuItemTemplate>
+    </Shell.MenuItemTemplate>-->
 
-    -->
+    
 
 </Shell>

@@ -1,7 +1,5 @@
 ﻿namespace MusicPlayerMobile.Views
 {
-    using System;
-
     using MusicPlayerMobile.ViewModels;
 
     using Xamarin.Forms;
@@ -14,7 +12,7 @@
         /// <summary>
         ///     The songs view model.
         /// </summary>
-        private readonly SongsViewModel songsViewModel;
+        private readonly SongsViewModel _songsViewModel;
 
         /// <summary>
         ///     Creates a new instance of the <see cref="SongsPage"/> class.
@@ -23,8 +21,8 @@
         {
             this.InitializeComponent();
 
-            this.BindingContext = this.songsViewModel = new SongsViewModel();
-            this.songsViewModel = this.BindingContext as SongsViewModel;
+            this.BindingContext = this._songsViewModel = new SongsViewModel();
+            this._songsViewModel = this.BindingContext as SongsViewModel;
         }
 
         /// <summary>
@@ -33,37 +31,7 @@
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await this.songsViewModel.OnAppearingAsync();
-        }
-
-        /// <summary>
-        ///     Handles the play button clicked event.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event arguments.</param>
-        private void PlayButton_Clicked(object sender, EventArgs e)
-        {
-            this.songsViewModel.PlayButtonClicked();
-        }
-
-        /// <summary>
-        ///     Handles the previous button clicked event.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event arguments.</param>
-        private void PrevButton_Clicked(object sender, EventArgs e)
-        {
-            this.songsViewModel.PlayPreviousSong();
-        }
-
-        /// <summary>
-        ///     Handles the next button clicked event.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="e">The event arguments.</param>
-        private void NextButton_Clicked(object sender, EventArgs e)
-        {
-            this.songsViewModel.PlayNextSong();
+            await this._songsViewModel.OnAppearingAsync();
         }
     }
 }

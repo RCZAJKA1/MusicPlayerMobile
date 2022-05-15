@@ -8,16 +8,11 @@
         /// <summary>
         ///     The base android folder path for external files.
         /// </summary>
-        private const string AndroidBaseFolderPath = "/storage/emulated/0";
+        private const string AndroidExternalStoragePath = "/storage/emulated/0";
 
         /// <summary>
-        ///     The android folder path for external music files.
+        ///     The android folder path for music files in external storage.
         /// </summary>
-        public const string AndroidFolderPathMusic = AndroidBaseFolderPath + "/Music";
-
-        /// <summary>
-        ///     The android folder path for external download files.
-        /// </summary>
-        public const string AndroidFolderPathDownloads = AndroidBaseFolderPath + "/Download";
+        public const string AndroidExternalMusicFolderPath = AndroidExternalStoragePath + "/Music";
     }
 }

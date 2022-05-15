@@ -1,20 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MusicPlayerMobile.Views.SongsPage"
+             x:Class="MusicPlayerMobile.Views.CreatePlaylistPage"
              xmlns:vm="clr-namespace:MusicPlayerMobile.ViewModels"
              xmlns:model="clr-namespace:MusicPlayerMobile.Models"
-             x:DataType="vm:SongsViewModel"
+             x:DataType="vm:CreatePlaylistViewModel"
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
-        <vm:SongsViewModel />
+        <vm:CreatePlaylistViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
+        <Style TargetType="Frame">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
     </ContentPage.Resources>
 
     <Grid>
@@ -32,9 +46,9 @@
         </Grid.ColumnDefinitions>
 
         <!--Row 1 - Songs list-->
-        <CollectionView x:Name="SongsListView"
+        <CollectionView x:Name="SelectableSongsListView"
                         ItemsSource="{Binding Songs}"
-                        SelectionMode="None"
+                        SelectionMode="Multiple"
                         Grid.Row="0"
                         Grid.ColumnSpan="3">
             <CollectionView.ItemTemplate>
@@ -55,7 +69,7 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SongsViewModel}}, Path=SongTappedCommand}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CreatePlaylistViewModel}}, Path=SongSelectedCommand}"
                                             CommandParameter="{Binding .}">
                                 </TapGestureRecognizer>
                             </StackLayout.GestureRecognizers>
@@ -65,14 +79,9 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!--Row 2 - Buttons-->
-        <Label Text="{Binding NowPlayingLabelText}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
-               TextColor="Black" FontSize="15" Padding="10"/>
-        <Button Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="10" Command="{Binding PrevButtonClickedCommand}" Margin="10"/>
-        <Button Text="Play/Pause" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="40" Command="{Binding PlayButtonClickedCommand}" />
-        <Button Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="10" Command="{Binding NextButtonClickedCommand}" Margin="10"/>
+        <!--Row 2 - Playlist title entry-->
+        <Entry x:Name="NewPlaylistNameEntry" ClearButtonVisibility="WhileEditing" TextColor="Black" Text="{Binding PlaylistName}"></Entry>
+        <Button Text="Create" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="10" Clicked="CreateButton_Clicked"  Margin="10"/>
     </Grid>
 </ContentPage>
