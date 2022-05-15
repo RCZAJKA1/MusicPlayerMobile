@@ -44,19 +44,6 @@
         private void PlayButton_Clicked(object sender, EventArgs e)
         {
             this.songsViewModel.PlayButtonClicked();
-
-            //// TODO: use icons instead of text & update image sources
-            //switch (this.PlayButton.Text)
-            //{
-            //    case "Play":
-            //        this.PlayButton.Text = "Pause";
-            //        break;
-            //    case "Pause":
-            //        this.PlayButton.Text = "Play";
-            //        break;
-            //    default:
-            //        throw new InvalidOperationException("The play button text must only be 'Play' or 'Pause'.");
-            //}
         }
 
         /// <summary>

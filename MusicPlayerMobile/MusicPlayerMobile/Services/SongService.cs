@@ -30,11 +30,13 @@ namespace MusicPlayerMobile
             songFiles.Sort();
             for (int i = 0; i < songFiles.Count; i++)
             {
-                string fileName = Path.GetFileName(songFiles[i]);
+                string filePath = songFiles[i];
+                string fileName = Path.GetFileName(filePath);
+                string songNameWithArtist = Path.GetFileNameWithoutExtension(fileName);
                 Song song = new Song
                 {
                     Id = i,
-                    Name = fileName,
+                    Name = songNameWithArtist,
                     FilePath = songFiles[i]
                 };
 

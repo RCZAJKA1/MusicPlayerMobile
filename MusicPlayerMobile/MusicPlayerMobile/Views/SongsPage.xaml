@@ -65,7 +65,7 @@
         </CollectionView>
 
         <!--Row 2 - Buttons-->
-        <Label x:Name="NowPlayingLabel" Text="" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
+        <Label x:Name="NowPlayingLabel" Text="{Binding NowPlayingLabelText}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
                TextColor="Black" FontSize="15" Padding="10"/>
         <Button x:Name="PrevButton" Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Clicked="PrevButton_Clicked" Margin="10"/>

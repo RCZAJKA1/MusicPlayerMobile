@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
 
     using Android.Media;
+    using Android.Widget;
 
     using MusicPlayerMobile.Models;
     using MusicPlayerMobile.Services;
@@ -45,12 +46,19 @@
         private int _songHistoryPtr;
 
         /// <summary>
+        ///     The now playing label text.
+        /// </summary>
+        private string _nowPlayingLabelText;
+
+        /// <summary>
         ///     Creates a new instance of the <see cref="SongsViewModel"/> class.
         /// </summary>
         public SongsViewModel()
         {
             this.Title = "Songs";
             this._songService = DependencyService.Get<ISongService>() ?? throw new InvalidOperationException("Unable to get dependency ISongService.");
+
+            #region Testing
 
             //List<Song> songList = new List<Song>();
             //for (int i = 0; i < 10; i++)
@@ -66,6 +74,8 @@
             //}
             //this._selectedSong = songList[0];
             //this.NowPlayingLabelText = this._selectedSong.Name;
+
+            #endregion
 
             this.Songs = new List<Song>();
             this.SongHistory = new List<int>();
@@ -89,12 +99,18 @@
         public Command<Song> SongTapped { get; }
 
         /// <summary>
+        ///     Gets and sets the now playing label text.
+        /// </summary>
+        public string NowPlayingLabelText
+        {
+            get => this._nowPlayingLabelText;
+            set => this.SetProperty(ref this._nowPlayingLabelText, value);
+        }
+
+        /// <summary>
         ///     Gets and sets the song history.
         /// </summary>
         private List<int> SongHistory { get; set; }
-
-        /// <inheritdoc/>
-        public string NowPlayingLabelText { get; set; }
 
         /// <summary>
         ///     Loads all songs from the device.
@@ -158,7 +174,9 @@
             this.PlaySong(song);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        ///     Plays and pauses the media player.
+        /// </summary>
         public void PlayButtonClicked()
         {
             if (this._mediaPlayer.IsPlaying)
@@ -179,7 +197,8 @@
         {
             if (this._songHistoryPtr < 1)
             {
-                // TODO: notify user no more previous songs
+                Toast noPrevSongMsg = Toast.MakeText(Android.App.Application.Context, "No previous songs", ToastLength.Short);
+                noPrevSongMsg.Show();
                 return;
             }
 
@@ -227,6 +246,11 @@
             this._mediaPlayer.SetDataSource(this._selectedSong.FilePath);
             this._mediaPlayer.Prepare();
             this._mediaPlayer.Start();
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.NowPlayingLabelText = song.Name;
+            });
         }
 
         /// <summary>
