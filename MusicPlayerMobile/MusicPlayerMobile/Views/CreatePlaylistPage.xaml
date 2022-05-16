@@ -47,7 +47,7 @@
 
         <!--Row 1 - Songs list-->
         <CollectionView x:Name="SelectableSongsListView"
-                        ItemsSource="{Binding Songs}"
+                        ItemsSource="{Binding AllSelectableSongs}"
                         SelectionMode="Multiple"
                         Grid.Row="0"
                         Grid.ColumnSpan="3">
@@ -67,11 +67,11 @@
                                         FontSize="13" 
                                         Margin="-6"/>
                             <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer
+                                <!--<TapGestureRecognizer
                                             NumberOfTapsRequired="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CreatePlaylistViewModel}}, Path=SongSelectedCommand}"
                                             CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
+                                </TapGestureRecognizer>-->
                             </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </Frame>
@@ -80,7 +80,7 @@
         </CollectionView>
 
         <!--Row 2 - Playlist title entry-->
-        <Entry x:Name="NewPlaylistNameEntry" ClearButtonVisibility="WhileEditing" TextColor="Black" Text="{Binding PlaylistName}"></Entry>
+        <Entry x:Name="NewPlaylistNameEntry" Keyboard="Text" ClearButtonVisibility="WhileEditing" TextColor="Black" Text="{Binding PlaylistName}"></Entry>
         <Button Text="Create" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Clicked="CreateButton_Clicked"  Margin="10"/>
     </Grid>

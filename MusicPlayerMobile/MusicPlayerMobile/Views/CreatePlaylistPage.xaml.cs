@@ -2,9 +2,6 @@
 {
     using System;
 
-    using Android.Widget;
-
-    using MusicPlayerMobile.Models;
     using MusicPlayerMobile.ViewModels;
 
     using Xamarin.Forms;
@@ -14,6 +11,9 @@
     /// </summary>
     public partial class CreatePlaylistPage : ContentPage
     {
+        /// <summary>
+        ///     The create playlists view model.
+        /// </summary>
         private readonly CreatePlaylistViewModel _createPlaylistsViewModel;
 
         public CreatePlaylistPage()
@@ -31,27 +31,42 @@
         /// <param name="e">The event arguments.</param>
         private async void CreateButton_Clicked(object sender, EventArgs e)
         {
-            // get selected songs
-            var selectedSongs = this.SongsListView.SelectedItems;
+            //// get selected songs
+            ////List<object> selectedSongs = this.SelectableSongsListView.SelectedItems.ToList();
+            ////List<Song> selectedSongs = new List<Song>();
+            ////foreach (object selectedObject in selectedObjects)
+            ////{
+            ////    Song song = new Song
+            ////    {
+            ////        Name = selectedObject.
+            ////    };
+            ////}
 
-            string newPlaylistName = this.NewPlaylistNameEntry.Text;
-            if (string.IsNullOrWhiteSpace(newPlaylistName))
-            {
-                Toast playlistNameRequiredMsg = Toast.MakeText(Android.App.Application.Context, "Playlist name required", ToastLength.Short);
-                playlistNameRequiredMsg.Show();
-                return;
-            }
+            //// get new playlist name
+            //string newPlaylistName = this.NewPlaylistNameEntry.Text;
+            //if (string.IsNullOrWhiteSpace(newPlaylistName))
+            //{
+            //    Toast playlistNameRequiredMsg = Toast.MakeText(Android.App.Application.Context, "Playlist name required", ToastLength.Short);
+            //    playlistNameRequiredMsg.Show();
+            //    return;
+            //}
 
-            // create new playlist object
-            Playlist newPlaylist = new Playlist()
-            {
-                Name = newPlaylistName,
-                Songs = selectedSongs
-            };
-            this._createPlaylistsViewModel.NewPlaylist = newPlaylist;
+            //// create new playlist object
+            //Playlist newPlaylist = new Playlist()
+            //{
+            //    Name = newPlaylistName,
+            //    //Songs = selectedSongs
+            //};
+            //this._createPlaylistsViewModel.NewPlaylist = newPlaylist;
 
-            // return to playlists page
-            await Shell.Current.GoToAsync($"..");
+            //// return to playlists page
+            //await Shell.Current.GoToAsync($"..");
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await this._createPlaylistsViewModel.OnAppearingAsync().ConfigureAwait(false);
         }
     }
 }
