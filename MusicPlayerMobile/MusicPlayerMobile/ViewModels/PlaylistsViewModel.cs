@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -21,7 +20,7 @@
         /// <summary>
         ///     The playlists.
         /// </summary>
-        private List<Playlist> _allPlaylists;
+        private List<Playlist> _playlists;
 
         /// <summary>
         ///     The song service.
@@ -41,7 +40,7 @@
             #region Testing
 
             List<Playlist> playlists = new List<Playlist>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Playlist song = new Playlist()
                 {
@@ -76,22 +75,20 @@
         /// </summary>
         public List<Playlist> Playlists
         {
-            get => this._allPlaylists;
-            set => this.SetProperty(ref this._allPlaylists, value);
+            get => this._playlists;
+            set => this.SetProperty(ref this._playlists, value);
         }
 
         /// <summary>
-        ///     Adds a playlist when the add button is clicked.
+        ///     Navigates to the create playlist page when the add button is clicked.
         /// </summary>
-        /// <returns></returns>
-        private async Task OnAddPlaylistClickedAsync()
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The <see cref="Task"/> that completed navigating to the <see cref="CreatePlaylistPage"/>.</returns>
+        private async Task OnAddPlaylistClickedAsync(CancellationToken cancellationToken = default)
         {
-            // open new page to select songs into playlist
+            cancellationToken.ThrowIfCancellationRequested();
+
             await Shell.Current.GoToAsync($"//{nameof(CreatePlaylistPage)}");
-
-            // create playlist
-
-            // save playlist to device - application local storage
         }
 
         /// <summary>
@@ -106,11 +103,6 @@
 
             try
             {
-                if (this._allPlaylists.Any())
-                {
-                    return;
-                }
-
                 IEnumerable<Playlist> playlists = await this._songService.GetAllPlaylistsAsync(cancellationToken).ConfigureAwait(false);
                 this.Playlists.AddRange(playlists);
             }

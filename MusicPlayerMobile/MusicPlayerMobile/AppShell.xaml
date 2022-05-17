@@ -83,9 +83,9 @@
     <FlyoutItem Title="Playlists">
         <ShellContent Route="PlaylistsPage" ContentTemplate="{DataTemplate local:PlaylistsPage}" />
     </FlyoutItem>
-    <FlyoutItem>
+    <!--<FlyoutItem>
         <ShellContent Route="CreatePlaylistPage" FlyoutItemIsVisible="False" ContentTemplate="{DataTemplate local:CreatePlaylistPage}"/>
-    </FlyoutItem>
+    </FlyoutItem>-->
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <!--<MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
@@ -98,9 +98,9 @@
         content you can do so by calling 
         await Shell.Current.GoToAsync("//LoginPage");
     -->
-    <!--<TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>-->
+    <TabBar>
+        <ShellContent Route="CreatePlaylistPage" ContentTemplate="{DataTemplate local:CreatePlaylistPage}"/>
+    </TabBar>
 
     
     

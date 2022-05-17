@@ -11,24 +11,36 @@ using MusicPlayerMobile.Services;
 
 using Newtonsoft.Json;
 
+using Xamarin.Forms;
+
 [assembly: Xamarin.Forms.Dependency(typeof(SongService))]
 namespace MusicPlayerMobile
 {
     /// <inheritdoc cref="ISongService"/>
     public sealed class SongService : ISongService
     {
+        /// <summary>
+        ///     The file service.
+        /// </summary>
+        private readonly IFileService _fileService;
+
+        public SongService()
+        {
+            this._fileService = DependencyService.Get<IFileService>() ?? throw new InvalidOperationException("Unable to get dependency IFileService.");
+        }
+
         /// <inheritdoc/>
         public async Task<IEnumerable<Song>> GetAllSongsAsync(CancellationToken cancellationToken = default)
         {
-            if (!Directory.Exists(Constants.AndroidExternalMusicFolderPath))
+            if (!Directory.Exists(FolderPaths.MusicFolderPath))
             {
-                throw new InvalidOperationException($"The directory '{Constants.AndroidExternalMusicFolderPath}' does not exist.");
+                throw new InvalidOperationException($"The directory '{FolderPaths.MusicFolderPath}' does not exist.");
             }
 
             cancellationToken.ThrowIfCancellationRequested();
 
             List<Song> allSongs = new List<Song>();
-            List<string> songFiles = Directory.EnumerateFiles(Constants.AndroidExternalMusicFolderPath).ToList();
+            List<string> songFiles = Directory.EnumerateFiles(FolderPaths.MusicFolderPath).ToList();
             songFiles.Sort();
             for (int i = 0; i < songFiles.Count; i++)
             {
@@ -51,15 +63,14 @@ namespace MusicPlayerMobile
         /// <inheritdoc/>
         public async Task<IEnumerable<Playlist>> GetAllPlaylistsAsync(CancellationToken cancellationToken = default)
         {
-            string playlistDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "Playlists");
-            if (!Directory.Exists(playlistDirectory))
+            if (!Directory.Exists(FolderPaths.PlaylistsFolderPath))
             {
-                throw new InvalidOperationException($"The directory '{playlistDirectory}' does not exist.");
+                await this._fileService.CreatePlaylistFolderAsync().ConfigureAwait(false);
             }
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            List<string> playlistFileNames = Directory.EnumerateFiles(playlistDirectory).ToList();
+            List<string> playlistFileNames = Directory.EnumerateFiles(FolderPaths.PlaylistsFolderPath).ToList();
             if (playlistFileNames?.Count == 0)
             {
                 return await Task.FromResult(new List<Playlist>());

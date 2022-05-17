@@ -11,6 +11,10 @@
         <vm:CreatePlaylistViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Command="{Binding BackButtonClickedCommand}" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
@@ -50,6 +54,7 @@
                         ItemsSource="{Binding AllSelectableSongs}"
                         SelectionMode="Multiple"
                         Grid.Row="0"
+                        Grid.RowSpan="2"
                         Grid.ColumnSpan="3">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
