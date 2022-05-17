@@ -108,7 +108,13 @@
         /// <param name="song">The selected song.</param>
         private void OnSongSelectedCommand(Song song)
         {
-            this._selectedSongs.Add(song);
+            if (!this._selectedSongs.Contains(song))
+            {
+                this._selectedSongs.Add(song);
+                return;
+            }
+
+            this._selectedSongs.Remove(song);
         }
 
         /// <summary>

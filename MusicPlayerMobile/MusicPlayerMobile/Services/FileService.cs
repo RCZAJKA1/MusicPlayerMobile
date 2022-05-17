@@ -1,11 +1,16 @@
-﻿namespace MusicPlayerMobile.Services
-{
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
+using MusicPlayerMobile.Services;
+
+using Xamarin.Forms;
+
+[assembly: Dependency(typeof(FileService))]
+namespace MusicPlayerMobile.Services
+{
     /// <inheritdoc cref="IFileService"/>
     internal sealed class FileService : IFileService
     {

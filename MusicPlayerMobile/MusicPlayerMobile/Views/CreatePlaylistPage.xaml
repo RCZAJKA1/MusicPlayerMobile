@@ -72,11 +72,11 @@
                                         FontSize="13" 
                                         Margin="-6"/>
                             <StackLayout.GestureRecognizers>
-                                <!--<TapGestureRecognizer
+                                <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CreatePlaylistViewModel}}, Path=SongSelectedCommand}"
                                             CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>-->
+                                </TapGestureRecognizer>
                             </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </Frame>

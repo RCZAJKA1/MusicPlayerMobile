@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 
 using Xamarin.Forms;
 
-[assembly: Xamarin.Forms.Dependency(typeof(SongService))]
+[assembly: Dependency(typeof(SongService))]
 namespace MusicPlayerMobile
 {
     /// <inheritdoc cref="ISongService"/>
