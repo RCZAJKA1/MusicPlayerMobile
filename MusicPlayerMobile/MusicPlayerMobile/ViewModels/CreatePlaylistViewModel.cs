@@ -50,7 +50,7 @@
         /// <summary>
         ///     The selected songs.
         /// </summary>
-        private readonly List<Song> _selectedSongs;
+        private List<Song> _selectedSongs;
 
         /// <summary>
         ///     The selectable songs.
@@ -110,6 +110,15 @@
         {
             get => this._newPlaylistName;
             set => this.SetProperty(ref this._newPlaylistName, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the selected songs.
+        /// </summary>
+        internal List<Song> SelectedSongs
+        {
+            get => this._selectedSongs;
+            set => this.SetProperty(ref this._selectedSongs, value);
         }
 
         /// <summary>
