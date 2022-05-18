@@ -1,16 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-using MusicPlayerMobile.Services;
-
-using Xamarin.Forms;
-
-[assembly: Dependency(typeof(FileService))]
-namespace MusicPlayerMobile.Services
+﻿namespace MusicPlayerMobile.Services
 {
+    using System.IO;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <inheritdoc cref="IFileService"/>
     internal sealed class FileService : IFileService
     {
@@ -25,22 +19,10 @@ namespace MusicPlayerMobile.Services
         /// <inheritdoc/>
         public async Task SavePlaylistAsync(string playlistName, string contents, CancellationToken cancellationToken = default)
         {
-            if (playlistName == null)
-            {
-                throw new ArgumentNullException(nameof(playlistName));
-            }
-            if (playlistName.Trim() == string.Empty)
-            {
-                throw new ArgumentException("The argument cannot be empty or only contain white space.", nameof(playlistName));
-            }
-            if (contents == null)
-            {
-                throw new ArgumentNullException(nameof(playlistName));
-            }
-            if (contents.Trim() == string.Empty)
-            {
-                throw new ArgumentException("The argument cannot be empty or only contain white space.", nameof(contents));
-            }
+            playlistName.ThrowIfNull(nameof(playlistName));
+            playlistName.ThrowIfEmptyOrWhiteSpace(nameof(playlistName));
+            playlistName.ThrowIfNull(nameof(contents));
+            playlistName.ThrowIfEmptyOrWhiteSpace(nameof(contents));
 
             cancellationToken.ThrowIfCancellationRequested();
 

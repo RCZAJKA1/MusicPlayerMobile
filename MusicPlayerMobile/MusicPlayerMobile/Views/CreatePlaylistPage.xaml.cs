@@ -38,6 +38,21 @@
         }
 
         /// <summary>
+        ///     Handles the clear button clicked event.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
+        private async void ClearButton_Clicked(object sender, EventArgs e)
+        {
+            bool clearSongs = await this.DisplayAlert("Clear Selection?", "Would you like to clear all selected songs?", "Yes", "No");
+
+            if (clearSongs)
+            {
+                this._createPlaylistsViewModel.ClearSelectedSongs();
+            }
+        }
+
+        /// <summary>
         ///     Prepares the create playlist view model while the page is appearing.
         /// </summary>
         protected override async void OnAppearing()

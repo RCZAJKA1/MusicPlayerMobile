@@ -1,5 +1,6 @@
 ﻿namespace MusicPlayerMobile
 {
+    using MusicPlayerMobile.Services;
 
     using Xamarin.Forms;
 
@@ -17,6 +18,8 @@
             this.InitializeComponent();
 
             this.MainPage = new AppShell();
+
+            this.RegisterDependencies();
         }
 
         /// <inheritdoc/>
@@ -32,6 +35,14 @@
         /// <inheritdoc/>
         protected override void OnResume()
         {
+        }
+
+        private void RegisterDependencies()
+        {
+            DependencyService.Register<ISongService, SongService>();
+            DependencyService.Register<IFileService, FileService>();
+            DependencyService.Register<INavigationService, NavigationService>();
+            DependencyService.Register<IAndroidToastService, AndroidToastService>();
         }
     }
 }

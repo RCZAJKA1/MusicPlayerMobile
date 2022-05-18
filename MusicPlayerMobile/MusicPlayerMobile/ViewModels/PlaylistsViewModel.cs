@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -39,39 +40,39 @@
 
             #region Testing
 
-            List<Playlist> playlists = new List<Playlist>();
-            for (int i = 0; i < 20; i++)
-            {
-                Playlist song = new Playlist()
-                {
-                    Id = i,
-                    Name = $"playlist{i}",
-                    Songs = new List<Song>
-                    {
-                        new Song
-                        {
-                            Id = 1,
-                            Name = $"playlist{i}_song",
-                            FilePath = "testFilePath"
-                        }
-                    }
-                };
+            //List<Playlist> playlists = new List<Playlist>();
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    Playlist song = new Playlist()
+            //    {
+            //        Id = i,
+            //        Name = $"playlist{i}",
+            //        Songs = new List<Song>
+            //        {
+            //            new Song
+            //            {
+            //                Id = 1,
+            //                Name = $"playlist{i}_song",
+            //                FilePath = "testFilePath"
+            //            }
+            //        }
+            //    };
 
-                playlists.Add(song);
-            }
+            //    playlists.Add(song);
+            //}
 
             #endregion
 
-            this.Playlists = playlists;
+            this.Playlists = new List<Playlist>();
         }
 
         /// <summary>
-        ///     Gets the add playlist command.
+        ///     Gets the add playlist command. Public for xaml binding.
         /// </summary>
         public Command AddPlaylistCommand { get; }
 
         /// <summary>
-        ///     Gets and sets all playlists.
+        ///     Gets and sets all playlists. Public for xaml binding.
         /// </summary>
         public List<Playlist> Playlists
         {
@@ -103,8 +104,13 @@
 
             try
             {
+                if (this._playlists.Any())
+                {
+                    return;
+                }
+
                 IEnumerable<Playlist> playlists = await this._songService.GetAllPlaylistsAsync(cancellationToken).ConfigureAwait(false);
-                this.Playlists.AddRange(playlists);
+                this._playlists.AddRange(playlists);
             }
             catch (Exception ex)
             {

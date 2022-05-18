@@ -10,7 +10,6 @@
     using Android.Widget;
 
     using MusicPlayerMobile.Models;
-    using MusicPlayerMobile.Services;
 
     using Xamarin.Forms;
 
@@ -20,11 +19,6 @@
     public class BaseViewModel : INotifyPropertyChanged
     {
         /// <summary>
-        ///     The data store.
-        /// </summary>
-        public ISongService DataStore => DependencyService.Get<ISongService>();
-
-        /// <summary>
         ///     The is busy.
         /// </summary>
         private bool _isBusy = false;
@@ -32,37 +26,42 @@
         /// <summary>
         ///     The title.
         /// </summary>
-        string _title = string.Empty;
+        private string _title = string.Empty;
 
         /// <summary>
         ///     The selected song.
         /// </summary>
-        protected Song _selectedSong;
+        private Song _selectedSong;
 
         /// <summary>
         ///     The media player.
         /// </summary>
-        protected MediaPlayer _mediaPlayer;
+        private MediaPlayer _mediaPlayer;
 
         /// <summary>
         ///     All songs.
         /// </summary>
-        protected List<Song> _allSongs;
+        private List<Song> _allSongs;
 
         /// <summary>
         ///     The playlist songs.
         /// </summary>
-        protected List<Song> _playlistSongs;
+        private List<Song> _playlistSongs;
 
         /// <summary>
         ///     The song history pointer.
         /// </summary>
-        protected int _songHistoryPtr;
+        private int _songHistoryPtr;
 
         /// <summary>
         ///     The now playing label text.
         /// </summary>
-        protected string _nowPlayingLabelText;
+        private string _nowPlayingLabelText;
+
+        /// <summary>
+        ///     The song history.
+        /// </summary>
+        private List<int> _songHistory;
 
         /// <summary>
         ///     Creates a new instance of the <see cref="BaseViewModel"/> class.
@@ -79,7 +78,7 @@
         /// <summary>
         ///     Gets and sets the is busy.
         /// </summary>
-        public bool IsBusy
+        protected bool IsBusy
         {
             get => this._isBusy;
             set => this.SetProperty(ref this._isBusy, value);
@@ -92,6 +91,69 @@
         {
             get => this._title;
             set => this.SetProperty(ref this._title, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the now playing label text.
+        /// </summary>
+        public string NowPlayingLabelText
+        {
+            get => this._nowPlayingLabelText;
+            set => this.SetProperty(ref this._nowPlayingLabelText, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the selected song.
+        /// </summary>
+        protected Song SelectedSong
+        {
+            get => this._selectedSong;
+            set => this.SetProperty(ref this._selectedSong, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the media player.
+        /// </summary>
+        protected MediaPlayer MediaPlayer
+        {
+            get => this._mediaPlayer;
+            set => this.SetProperty(ref this._mediaPlayer, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the song history pointer.
+        /// </summary>
+        protected int SongHistoryPtr
+        {
+            get => this._songHistoryPtr;
+            set => this.SetProperty(ref this._songHistoryPtr, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the song history.
+        /// </summary>
+        protected List<int> SongHistory
+        {
+            get => this._songHistory;
+            set => this.SetProperty(ref this._songHistory, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the playlist songs.
+        /// </summary>
+        protected List<Song> PlaylistSongs
+        {
+            get => this._playlistSongs;
+            set => this.SetProperty(ref this._playlistSongs, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets all songs.
+        /// </summary>
+        public List<Song> AllSongs
+        {
+            get => this._allSongs;
+            set => this.SetProperty(ref this._allSongs, value);
         }
 
         /// <summary>
@@ -113,25 +175,6 @@
         ///     Gets the next button clicked command.
         /// </summary>
         public Command NextButtonClickedCommand { get; set; }
-
-        /// <summary>
-        ///     Gets and sets the now playing label text.
-        /// </summary>
-        public string NowPlayingLabelText
-        {
-            get => this._nowPlayingLabelText;
-            set => this.SetProperty(ref this._nowPlayingLabelText, value);
-        }
-
-        /// <summary>
-        ///     Gets and sets the song history.
-        /// </summary>
-        protected List<int> SongHistory { get; set; }
-
-        /// <summary>
-        ///     Gets and sets the playlist songs.
-        /// </summary>
-        protected List<Song> PlaylistSongs { get; set; }
 
         /// <summary>
         ///     Sets the referenced property using the specified value.
@@ -211,11 +254,7 @@
                 return;
             }
 
-            if (this._selectedSong != null)
-            {
-                this._mediaPlayer.Start();
-                return;
-            }
+            this._mediaPlayer.Start();
         }
 
         /// <summary>
@@ -223,7 +262,7 @@
         /// </summary>
         private void OnNextButtonClicked()
         {
-            if (this._selectedSong.Id == this.SongHistory.Last())
+            if (this.SelectedSong == null || this.SelectedSong.Id == this.SongHistory.Last())
             {
                 this.PlayRandomSong();
                 return;
@@ -262,12 +301,12 @@
         /// <param name="song">The song to be played.</param>
         private void PlaySong(Song song)
         {
-            this._selectedSong = song ?? throw new ArgumentNullException(nameof(song));
+            this.SelectedSong = song ?? throw new ArgumentNullException(nameof(song));
 
-            //this._mediaPlayer.Reset();
-            //this._mediaPlayer.SetDataSource(this._selectedSong.FilePath);
-            //this._mediaPlayer.Prepare();
-            //this._mediaPlayer.Start();
+            this._mediaPlayer.Reset();
+            this._mediaPlayer.SetDataSource(this.SelectedSong.FilePath);
+            this._mediaPlayer.Prepare();
+            this._mediaPlayer.Start();
 
             Device.BeginInvokeOnMainThread(() =>
             {

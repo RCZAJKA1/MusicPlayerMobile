@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-using MusicPlayerMobile;
-using MusicPlayerMobile.Models;
-using MusicPlayerMobile.Services;
-
-using Newtonsoft.Json;
-
-using Xamarin.Forms;
-
-[assembly: Dependency(typeof(SongService))]
-namespace MusicPlayerMobile
+﻿namespace MusicPlayerMobile
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using MusicPlayerMobile.Models;
+    using MusicPlayerMobile.Services;
+
+    using Newtonsoft.Json;
+
+    using Xamarin.Forms;
+
     /// <inheritdoc cref="ISongService"/>
     public sealed class SongService : ISongService
     {
@@ -24,6 +22,10 @@ namespace MusicPlayerMobile
         /// </summary>
         private readonly IFileService _fileService;
 
+        /// <summary>
+        ///     Creates a new instance of the <see cref="SongService"/> class.
+        /// </summary>
+        /// <exception cref="InvalidOperationException"></exception>
         public SongService()
         {
             this._fileService = DependencyService.Get<IFileService>() ?? throw new InvalidOperationException("Unable to get dependency IFileService.");

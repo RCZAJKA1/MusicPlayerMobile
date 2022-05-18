@@ -34,35 +34,26 @@
 
             #region Testing
 
-            List<Song> songList = new List<Song>();
-            for (int i = 0; i < 10; i++)
-            {
-                Song song = new Song()
-                {
-                    Id = i,
-                    Name = $"song{i}",
-                    FilePath = $"folder/song{i}.mp3"
-                };
+            //List<Song> songList = new List<Song>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    Song song = new Song()
+            //    {
+            //        Id = i,
+            //        Name = $"song{i}",
+            //        FilePath = $"folder/song{i}.mp3"
+            //    };
 
-                songList.Add(song);
-            }
-            this._selectedSong = songList[0];
-            this.NowPlayingLabelText = this._selectedSong.Name;
+            //    songList.Add(song);
+            //}
+            //this._selectedSong = songList[0];
+            //this.NowPlayingLabelText = this._selectedSong.Name;
 
             #endregion
 
-            this.Songs = songList;
-            this._mediaPlayer = new MediaPlayer();
-            this._songHistoryPtr = -1;
-        }
-
-        /// <summary>
-        ///     Gets and sets all songs.
-        /// </summary>
-        public List<Song> Songs
-        {
-            get => this._allSongs;
-            set => this.SetProperty(ref this._allSongs, value);
+            this.AllSongs = new List<Song>();
+            this.MediaPlayer = new MediaPlayer();
+            this.SongHistoryPtr = -1;
         }
 
         /// <summary>
@@ -77,13 +68,13 @@
 
             try
             {
-                if (this._allSongs.Any())
+                if (this.AllSongs.Any())
                 {
                     return;
                 }
 
                 IEnumerable<Song> songs = await this._songService.GetAllSongsAsync(cancellationToken).ConfigureAwait(false);
-                this.Songs.AddRange(songs);
+                this.AllSongs.AddRange(songs);
             }
             catch (Exception ex)
             {
@@ -102,7 +93,6 @@
         public async Task OnAppearingAsync(CancellationToken cancellationToken = default)
         {
             this.IsBusy = true;
-            this._selectedSong = null;
 
             cancellationToken.ThrowIfCancellationRequested();
 

@@ -7,8 +7,6 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Android.Widget;
-
     using MusicPlayerMobile.Models;
     using MusicPlayerMobile.Services;
     using MusicPlayerMobile.Views;
@@ -28,6 +26,16 @@
         ///     The file service.
         /// </summary>
         private readonly IFileService _fileService;
+
+        /// <summary>
+        ///     The navigation service.
+        /// </summary>
+        private readonly INavigationService _navigationService;
+
+        /// <summary>
+        ///     The android toast service.
+        /// </summary>
+        private readonly IAndroidToastService _androidToastService;
 
         /// <summary>
         ///     The new playlist.
@@ -63,6 +71,8 @@
             this._selectedSongs = new List<Song>();
             this._songService = DependencyService.Get<ISongService>() ?? throw new InvalidOperationException("Unable to get dependency ISongService");
             this._fileService = DependencyService.Get<IFileService>() ?? throw new InvalidOperationException("Unable to get dependency IFileService");
+            this._navigationService = DependencyService.Get<INavigationService>() ?? throw new InvalidOperationException("Unable to get dependency INavigationService");
+            this._androidToastService = DependencyService.Get<IAndroidToastService>() ?? throw new InvalidOperationException("Unable to get dependency IAndroidToastService");
         }
 
         /// <summary>
@@ -76,7 +86,7 @@
         public Command BackButtonClickedCommand { get; }
 
         /// <summary>
-        ///     Gets and sets all songs.
+        ///     Gets and sets all selectable songs. Needed for xaml binding.
         /// </summary>
         public List<Song> AllSelectableSongs
         {
@@ -127,6 +137,14 @@
         }
 
         /// <summary>
+        ///     Clears the selected songs.
+        /// </summary>
+        internal void ClearSelectedSongs()
+        {
+            this._selectedSongs.Clear();
+        }
+
+        /// <summary>
         ///     Loads all selectable songs to add to a new playlist.
         /// </summary>
         /// <param name="cancellationToken">The cancellation token.</param>
@@ -137,23 +155,27 @@
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            IEnumerable<Song> allSongs = new List<Song>
-            {
-                new Song{ Name = "song 1" },
-                new Song{ Name = "song 2" },
-                new Song{ Name = "song 3" },
-                new Song{ Name = "song 4" },
-                new Song{ Name = "song 5" },
-                new Song{ Name = "song 6" },
-                new Song{ Name = "song 7" },
-                new Song{ Name = "song 8" },
-                new Song{ Name = "song 9" },
-                new Song{ Name = "song 10" },
-                new Song{ Name = "song 11" },
-                new Song{ Name = "song 12" }
-            };
+            #region Testing
 
-            //IEnumerable<Song> allSongs = await this._songService.GetAllSongsAsync(cancellationToken).ConfigureAwait(false);
+            //IEnumerable<Song> allSongs = new List<Song>
+            //{
+            //    new Song{ Name = "song 1" },
+            //    new Song{ Name = "song 2" },
+            //    new Song{ Name = "song 3" },
+            //    new Song{ Name = "song 4" },
+            //    new Song{ Name = "song 5" },
+            //    new Song{ Name = "song 6" },
+            //    new Song{ Name = "song 7" },
+            //    new Song{ Name = "song 8" },
+            //    new Song{ Name = "song 9" },
+            //    new Song{ Name = "song 10" },
+            //    new Song{ Name = "song 11" },
+            //    new Song{ Name = "song 12" }
+            //};
+
+            #endregion
+
+            IEnumerable<Song> allSongs = await this._songService.GetAllSongsAsync(cancellationToken).ConfigureAwait(false);
             List<Song> songsList = allSongs.ToList();
             this.AllSelectableSongs = songsList;
         }
@@ -167,16 +189,14 @@
         {
             if (string.IsNullOrWhiteSpace(this._newPlaylistName))
             {
-                Toast playlistNameRequiredMsg = Toast.MakeText(Android.App.Application.Context, "Playlist name required", ToastLength.Short);
-                playlistNameRequiredMsg.Show();
+                this._androidToastService.DisplayToastMessage("Playlist name required");
                 return;
             }
 
             Regex regex = new Regex("[a-zA-Z0-9]+");
             if (!regex.IsMatch(this._newPlaylistName))
             {
-                Toast playlistNameInvalidMsg = Toast.MakeText(Android.App.Application.Context, "Alphanumeric characters only", ToastLength.Short);
-                playlistNameInvalidMsg.Show();
+                this._androidToastService.DisplayToastMessage("Alphanumeric characters only");
                 return;
             }
 
@@ -191,9 +211,9 @@
             string playlistJson = JsonConvert.SerializeObject(this._newPlaylist);
             string fileName = this._newPlaylistName + ".json";
 
-            await this._fileService.SavePlaylistAsync(fileName, playlistJson).ConfigureAwait(false);
+            //await this._fileService.SavePlaylistAsync(fileName, playlistJson).ConfigureAwait(false);
 
-            await Shell.Current.GoToAsync($"//{nameof(PlaylistsPage)}");
+            await this._navigationService.NavigateToPageAsync(nameof(PlaylistsPage)).ConfigureAwait(false);
         }
     }
 }

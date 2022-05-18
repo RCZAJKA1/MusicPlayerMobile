@@ -33,7 +33,7 @@
 
         <!--Row 1 - Songs list-->
         <CollectionView x:Name="SongsListView"
-                        ItemsSource="{Binding Songs}"
+                        ItemsSource="{Binding AllSongs}"
                         SelectionMode="None"
                         Grid.Row="0"
                         Grid.ColumnSpan="3">
