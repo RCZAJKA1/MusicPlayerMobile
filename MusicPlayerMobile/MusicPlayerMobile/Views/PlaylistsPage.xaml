@@ -1,15 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MusicPlayerMobile.Views.SongsPage"
+             x:Class="MusicPlayerMobile.Views.PlaylistsPage"
              xmlns:vm="clr-namespace:MusicPlayerMobile.ViewModels"
-             xmlns:model="clr-namespace:MusicPlayerMobile.Models"
-             x:DataType="vm:SongsViewModel"
+             xmlns:model="clr-namespace:MusicPlayerMobile.Models" 
+             x:DataType="vm:PlaylistsViewModel"
              Title="{Binding Title}">
-
+    
     <ContentPage.BindingContext>
-        <vm:SongsViewModel />
+        <vm:PlaylistsViewModel />
     </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddPlaylistCommand}" />
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -22,7 +26,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <!--Last row is to pad above the device bottom toolbar-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -31,31 +34,25 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--Row 1 - Songs list-->
-        <CollectionView x:Name="SongsListView"
-                        ItemsSource="{Binding AllSongs}"
+        <!--Row 1 - Playlist list-->
+        <CollectionView x:Name="PlaylistsListView"
+                        ItemsSource="{Binding Playlists}"
                         SelectionMode="None"
                         Grid.Row="0"
                         Grid.ColumnSpan="3">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Margin="-5" BorderColor="Black" BackgroundColor="LightGray" >
-                        <StackLayout x:DataType="model:Song">
+                        <StackLayout x:DataType="model:Playlist">
                             <Label Text="{Binding Name}"
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemTextStyle}"
                                         TextColor="Black"
                                         FontSize="16" />
-                            <Label Text="{Binding Description}"
-                                        LineBreakMode="NoWrap"
-                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                        TextColor="Black"
-                                        FontSize="13" 
-                                        Margin="-6"/>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SongsViewModel}}, Path=SongTappedCommand}"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PlaylistsViewModel}}, Path=PlaylistTappedCommand}"
                                             CommandParameter="{Binding .}">
                                 </TapGestureRecognizer>
                             </StackLayout.GestureRecognizers>
@@ -66,13 +63,13 @@
         </CollectionView>
 
         <!--Row 2 - Buttons-->
-        <Label Text="{Binding NowPlayingLabelText}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
+        <!--<Label Text="{Binding NowPlayingLabelText}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
                TextColor="Black" FontSize="15" Padding="10"/>
         <Button Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Command="{Binding PrevButtonClickedCommand}" Margin="10"/>
         <Button Text="Play/Pause" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="40" Command="{Binding PlayButtonClickedCommand}" />
         <Button Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="10" Command="{Binding NextButtonClickedCommand}" Margin="10"/>
+                BorderWidth="1" CornerRadius="10" Command="{Binding NextButtonClickedCommand}" Margin="10"/>-->
     </Grid>
 </ContentPage>
