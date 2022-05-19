@@ -1,7 +1,6 @@
 ﻿namespace MusicPlayerMobile.Views
 {
     using System;
-    using System.Text;
 
     using MusicPlayerMobile.ViewModels;
 
@@ -45,17 +44,13 @@
         /// <param name="e">The event arguments.</param>
         private async void ClearButton_Clicked(object sender, EventArgs e)
         {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < this._createPlaylistsViewModel.SelectedSongs.Count; i++)
-            {
-                sb.AppendLine($"- {this._createPlaylistsViewModel.SelectedSongs[i].Name}{Environment.NewLine}");
-            }
-            string message = $"Would you like to clear all selected songs?{Environment.NewLine}{sb}";
+            string message = $"Would you like to clear all selected songs?";
             bool clearSongs = await this.DisplayAlert("Clear Selection?", message, "Yes", "No");
 
             if (clearSongs)
             {
                 this._createPlaylistsViewModel.ClearSelectedSongs();
+                this.SelectableSongsCollection.SelectedItems = null;
             }
         }
 

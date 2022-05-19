@@ -1,6 +1,5 @@
 ﻿namespace MusicPlayerMobile.Droid
 {
-
     using Android;
     using Android.App;
     using Android.Content.PM;
@@ -22,10 +21,20 @@
         /// </summary>
         const string ReadExternalStoragePermission = Manifest.Permission.ReadExternalStorage;
 
+        ///// <summary>
+        /////     The write external storage permission.
+        ///// </summary>
+        //const string WriteExternalStoragePermission = Manifest.Permission.WriteExternalStorage;
+
         /// <summary>
         ///     The request stroage permission identifier.
         /// </summary>
         private const int RequestExternalStoragePermissionId = 1;
+
+        ///// <summary>
+        /////     The request stroage permission identifier.
+        ///// </summary>
+        //private const int RequestWriteExternalStoragePermissionId = 2;
 
         /// <summary>
         ///     The permissions.
@@ -53,15 +62,29 @@
                     {
                         if (grantResults[0] == (int)Permission.Granted)
                         {
-                            Toast.MakeText(this, "Permissions granted", ToastLength.Short).Show();
+                            Toast.MakeText(this, "Read Permission Granted", ToastLength.Short).Show();
                         }
                         else
                         {
-                            Toast.MakeText(this, "Permissions denied", ToastLength.Short).Show();
+                            Toast.MakeText(this, "Read Permission Denied", ToastLength.Short).Show();
                         }
                     }
 
                     break;
+
+                    //case RequestWriteExternalStoragePermissionId:
+                    //    {
+                    //        if (grantResults[1] == (int)Permission.Granted)
+                    //        {
+                    //            Toast.MakeText(this, "Write Permission Granted", ToastLength.Short).Show();
+                    //        }
+                    //        else
+                    //        {
+                    //            Toast.MakeText(this, "Write Permission Denied", ToastLength.Short).Show();
+                    //        }
+                    //    }
+
+                    //    break;
             }
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -84,53 +107,15 @@
         /// </summary>
         private void GetPermissions()
         {
-            if (this.CheckSelfPermission(ReadExternalStoragePermission) == (int)Permission.Granted)
+            if (this.CheckSelfPermission(ReadExternalStoragePermission) != (int)Permission.Granted)
             {
-                return;
+                this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
             }
 
-            this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
-
-            //AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            //alert.SetTitle("Permissions Needed");
-            //alert.SetMessage("READ permissions are required to retrieve music from the device.");
-
-            //alert.SetPositiveButton("Allow", (senderAlert, args) =>
+            //if (this.CheckSelfPermission(WriteExternalStoragePermission) != (int)Permission.Granted)
             //{
-            //    this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
-            //});
-
-            //alert.SetNegativeButton("Deny", (senderAlert, args) =>
-            //{
-            //    Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
-            //});
-
-            //Dialog dialog = alert.Create();
-            //dialog.Show();
-
-            //if (this.ShouldShowRequestPermissionRationale(ReadExternalStoragePermission))
-            //{
-            //    AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            //    alert.SetTitle("Permissions Needed");
-            //    alert.SetMessage("READ permissions are required to retrieve music from the device.");
-
-            //    alert.SetPositiveButton("Allow", (senderAlert, args) =>
-            //    {
-            //        this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
-            //    });
-
-            //    alert.SetNegativeButton("Deny", (senderAlert, args) =>
-            //    {
-            //        Toast.MakeText(this, "Permissions Denied", ToastLength.Short).Show();
-            //    });
-
-            //    Dialog dialog = alert.Create();
-            //    dialog.Show();
-
-            //    return;
+            //    this.RequestPermissions(this.Permissions, RequestWriteExternalStoragePermissionId);
             //}
-
-            //this.RequestPermissions(this.Permissions, RequestExternalStoragePermissionId);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿namespace MusicPlayerMobile
 {
-    using System;
-
     /// <summary>
     ///     Contains folder paths for device storage locations.
     /// </summary>
@@ -18,8 +16,8 @@
         public static string MusicFolderPath = AndroidExternalStoragePath + "/Music";
 
         /// <summary>
-        ///     The android folder path for playlist files in internal application storage.
+        ///     The android folder path for playlist files in external application storage.
         /// </summary>
-        public static string PlaylistsFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/Playlists";
+        public static string PlaylistsFolderPath = AndroidExternalStoragePath + "/Playlists";
     }
 }

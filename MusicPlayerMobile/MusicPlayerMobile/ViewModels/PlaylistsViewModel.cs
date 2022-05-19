@@ -29,14 +29,21 @@
         private readonly ISongService _songService;
 
         /// <summary>
+        ///     The selected playlist.
+        /// </summary>
+        private Playlist _selectedPlaylist;
+
+        /// <summary>
         ///     Creates a new instance of the <see cref="PlaylistsViewModel"/> class.
         /// </summary>
         public PlaylistsViewModel()
         {
             this.Title = "Playlists";
 
-            this.AddPlaylistCommand = new Command(async () => await this.OnAddPlaylistClickedAsync());
             this._songService = DependencyService.Get<ISongService>() ?? throw new InvalidOperationException("Unable to get dependency ISongService.");
+
+            this.AddPlaylistCommand = new Command(async () => await this.OnAddPlaylistClickedAsync());
+            this.SelectPlaylistCommand = new Command<Playlist>(async (Playlist playlist) => await this.OnPlaylistClickedAsync(playlist));
 
             #region Testing
 
@@ -60,6 +67,7 @@
 
             //    playlists.Add(song);
             //}
+            //this.Playlists = playlists;
 
             #endregion
 
@@ -72,12 +80,26 @@
         public Command AddPlaylistCommand { get; }
 
         /// <summary>
+        ///     Gets the select playlist command. Public for xaml binding.
+        /// </summary>
+        public Command SelectPlaylistCommand { get; }
+
+        /// <summary>
         ///     Gets and sets all playlists. Public for xaml binding.
         /// </summary>
         public List<Playlist> Playlists
         {
             get => this._playlists;
             set => this.SetProperty(ref this._playlists, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the selected playlist. Public for xaml binding.
+        /// </summary>
+        public Playlist SelectedPlaylist
+        {
+            get => this._selectedPlaylist;
+            set => this.SetProperty(ref this._selectedPlaylist, value);
         }
 
         /// <summary>
@@ -90,6 +112,20 @@
             cancellationToken.ThrowIfCancellationRequested();
 
             await Shell.Current.GoToAsync($"//{nameof(CreatePlaylistPage)}");
+        }
+
+        /// <summary>
+        ///     Loads the playlist songs to the songs page.
+        /// </summary>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>The <see cref="Task"/> that completed navigating to the <see cref="SongsPage"/>.</returns>
+        private async Task OnPlaylistClickedAsync(Playlist playlist, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            this.AllSongs = playlist.Songs;
+
+            await Shell.Current.GoToAsync($"//{nameof(SongsPage)}");
         }
 
         /// <summary>

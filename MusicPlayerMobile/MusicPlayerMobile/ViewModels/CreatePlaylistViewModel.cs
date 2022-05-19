@@ -15,6 +15,9 @@
 
     using Xamarin.Forms;
 
+    /// <summary>
+    ///     The create playlist view model.
+    /// </summary>
     public class CreatePlaylistViewModel : BaseViewModel
     {
         /// <summary>
@@ -64,7 +67,6 @@
         {
             this.Title = "Create Playlist";
 
-            this.SongSelectedCommand = new Command<Song>(this.OnSongSelectedCommand);
             this.BackButtonClickedCommand = new Command(async () => await this.OnBackClickedCommand());
 
             this.AllSelectableSongs = new List<Song>();
@@ -74,11 +76,6 @@
             this._navigationService = DependencyService.Get<INavigationService>() ?? throw new InvalidOperationException("Unable to get dependency INavigationService");
             this._androidToastService = DependencyService.Get<IAndroidToastService>() ?? throw new InvalidOperationException("Unable to get dependency IAndroidToastService");
         }
-
-        /// <summary>
-        ///     Gets the song selected command.
-        /// </summary>
-        public Command SongSelectedCommand { get; }
 
         /// <summary>
         ///     Gets the back button clicked command.
@@ -115,25 +112,10 @@
         /// <summary>
         ///     Gets and sets the selected songs.
         /// </summary>
-        internal List<Song> SelectedSongs
+        public List<Song> SelectedSongs
         {
             get => this._selectedSongs;
             set => this.SetProperty(ref this._selectedSongs, value);
-        }
-
-        /// <summary>
-        ///     Caches the selected song to be added to the new playlist.
-        /// </summary>
-        /// <param name="song">The selected song.</param>
-        private void OnSongSelectedCommand(Song song)
-        {
-            if (!this._selectedSongs.Contains(song))
-            {
-                this._selectedSongs.Add(song);
-                return;
-            }
-
-            this._selectedSongs.Remove(song);
         }
 
         /// <summary>
@@ -220,6 +202,7 @@
             string playlistJson = JsonConvert.SerializeObject(this._newPlaylist);
             string fileName = this._newPlaylistName + ".json";
 
+            // TODO: fix playlist save
             //await this._fileService.SavePlaylistAsync(fileName, playlistJson).ConfigureAwait(false);
 
             await this._navigationService.NavigateToPageAsync(nameof(PlaylistsPage)).ConfigureAwait(false);

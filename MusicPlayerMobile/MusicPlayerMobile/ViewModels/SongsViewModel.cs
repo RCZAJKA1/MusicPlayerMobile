@@ -46,8 +46,9 @@
 
             //    songList.Add(song);
             //}
-            //this._selectedSong = songList[0];
-            //this.NowPlayingLabelText = this._selectedSong.Name;
+            //this.SelectedSong = songList[0];
+            //this.NowPlayingLabelText = this.SelectedSong.Name;
+            //this.AllSongs = songList;
 
             #endregion
 

@@ -68,6 +68,7 @@
             if (!Directory.Exists(FolderPaths.PlaylistsFolderPath))
             {
                 await this._fileService.CreatePlaylistFolderAsync().ConfigureAwait(false);
+                return await Task.FromResult(new List<Playlist>());
             }
 
             cancellationToken.ThrowIfCancellationRequested();
