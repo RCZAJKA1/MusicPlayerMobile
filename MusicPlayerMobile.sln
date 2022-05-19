@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerMobile.Android",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPlayerMobile", "MusicPlayerMobile\MusicPlayerMobile\MusicPlayerMobile.csproj", "{F275EE76-A90A-4865-BC1D-4931269E2D14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerMobile.Tests", "MusicPlayerMobile.Tests\MusicPlayerMobile.Tests.csproj", "{D088BD29-8939-4923-BDDA-3A0D316CF147}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D088BD29-8939-4923-BDDA-3A0D316CF147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D088BD29-8939-4923-BDDA-3A0D316CF147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D088BD29-8939-4923-BDDA-3A0D316CF147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D088BD29-8939-4923-BDDA-3A0D316CF147}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
