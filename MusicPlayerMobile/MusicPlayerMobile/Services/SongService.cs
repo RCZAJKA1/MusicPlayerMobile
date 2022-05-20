@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -34,7 +33,8 @@
         /// <inheritdoc/>
         public async Task<IEnumerable<Song>> GetAllSongsAsync(CancellationToken cancellationToken = default)
         {
-            if (!Directory.Exists(FolderPaths.MusicFolderPath))
+            bool directoryExists = await this._fileService.DoesDirectoryExistAsync(FolderPaths.MusicFolderPath, cancellationToken).ConfigureAwait(false);
+            if (!directoryExists)
             {
                 throw new InvalidOperationException($"The directory '{FolderPaths.MusicFolderPath}' does not exist.");
             }
@@ -42,7 +42,7 @@
             cancellationToken.ThrowIfCancellationRequested();
 
             List<Song> allSongs = new List<Song>();
-            List<string> songFiles = Directory.EnumerateFiles(FolderPaths.MusicFolderPath).ToList();
+            List<string> songFiles = await this._fileService.GetFileNamesAsync(FolderPaths.MusicFolderPath).ConfigureAwait(false) as List<string>;
             songFiles.Sort();
             for (int i = 0; i < songFiles.Count; i++)
             {
@@ -65,7 +65,8 @@
         /// <inheritdoc/>
         public async Task<IEnumerable<Playlist>> GetAllPlaylistsAsync(CancellationToken cancellationToken = default)
         {
-            if (!Directory.Exists(FolderPaths.PlaylistsFolderPath))
+            bool directoryExists = await this._fileService.DoesDirectoryExistAsync(FolderPaths.PlaylistsFolderPath, cancellationToken).ConfigureAwait(false);
+            if (!directoryExists)
             {
                 await this._fileService.CreatePlaylistFolderAsync().ConfigureAwait(false);
                 return await Task.FromResult(new List<Playlist>());
@@ -73,7 +74,7 @@
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            List<string> playlistFileNames = Directory.EnumerateFiles(FolderPaths.PlaylistsFolderPath).ToList();
+            List<string> playlistFileNames = await this._fileService.GetFileNamesAsync(FolderPaths.PlaylistsFolderPath, cancellationToken).ConfigureAwait(false) as List<string>;
             if (playlistFileNames?.Count == 0)
             {
                 return await Task.FromResult(new List<Playlist>());
@@ -84,7 +85,7 @@
             for (int i = 0; i < playlistFileNames.Count; i++)
             {
                 string filePath = playlistFileNames[i];
-                Playlist playlist = this.GetPlaylistFromFile(filePath);
+                Playlist playlist = await this.GetPlaylistFromFileAsync(filePath, cancellationToken).ConfigureAwait(false);
 
                 allPlaylists.Add(playlist);
             }
@@ -96,10 +97,11 @@
         ///     Reads the specified file and returns the converted <see cref="Playlist"/> object.
         /// </summary>
         /// <param name="playlistFilePath">The playlist file path.</param>
+        /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>The <see cref="Playlist"/>.</returns>
-        private Playlist GetPlaylistFromFile(string playlistFilePath)
+        private async Task<Playlist> GetPlaylistFromFileAsync(string playlistFilePath, CancellationToken cancellationToken)
         {
-            string playlistContentsJson = File.ReadAllText(playlistFilePath);
+            string playlistContentsJson = await this._fileService.ReadAllTextAsync(playlistFilePath, cancellationToken);
             return JsonConvert.DeserializeObject<Playlist>(playlistContentsJson);
         }
     }
