@@ -1,10 +1,12 @@
 ﻿namespace MusicPlayerMobile.Models
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     ///     The playlist model.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class Playlist
     {
         /// <summary>

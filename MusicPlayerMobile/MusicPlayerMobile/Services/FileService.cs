@@ -21,8 +21,8 @@
         {
             playlistName.ThrowIfNull(nameof(playlistName));
             playlistName.ThrowIfEmptyOrWhiteSpace(nameof(playlistName));
-            playlistName.ThrowIfNull(nameof(contents));
-            playlistName.ThrowIfEmptyOrWhiteSpace(nameof(contents));
+            contents.ThrowIfNull(nameof(contents));
+            contents.ThrowIfEmptyOrWhiteSpace(nameof(contents));
 
             cancellationToken.ThrowIfCancellationRequested();
 
