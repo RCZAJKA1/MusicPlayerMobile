@@ -257,6 +257,12 @@
                 return;
             }
 
+            if (this.SelectedSong == null)
+            {
+                this.PlayRandomSong();
+                return;
+            }
+
             this._mediaPlayer.Start();
         }
 
