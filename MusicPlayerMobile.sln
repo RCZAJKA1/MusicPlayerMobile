@@ -7,24 +7,46 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerMobile.Android",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MusicPlayerMobile", "MusicPlayerMobile\MusicPlayerMobile\MusicPlayerMobile.csproj", "{F275EE76-A90A-4865-BC1D-4931269E2D14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicPlayerMobile.Tests", "MusicPlayerMobile.Tests\MusicPlayerMobile.Tests.csproj", "{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Debug|x64.ActiveCfg = Debug|x64
+		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Debug|x64.Build.0 = Debug|x64
+		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Debug|x64.Deploy.0 = Debug|x64
 		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Release|x64.ActiveCfg = Release|x64
+		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Release|x64.Build.0 = Release|x64
+		{13C1FA81-4D62-487C-9080-EF1924C79A1F}.Release|x64.Deploy.0 = Release|x64
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Debug|x64.ActiveCfg = Debug|x64
+		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Debug|x64.Build.0 = Debug|x64
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|x64.ActiveCfg = Release|x64
+		{F275EE76-A90A-4865-BC1D-4931269E2D14}.Release|x64.Build.0 = Release|x64
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Debug|x64.Build.0 = Debug|Any CPU
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Release|x64.ActiveCfg = Release|Any CPU
+		{AC80DC95-F7AE-42EC-83D0-17C3110D4B52}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

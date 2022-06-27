@@ -1,8 +1,11 @@
 ﻿namespace MusicPlayerMobile.Models
 {
+    using System.Diagnostics.CodeAnalysis;
+
     /// <summary>
     ///     The song model.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class Song
     {
         /// <summary>

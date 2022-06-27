@@ -60,7 +60,7 @@
         {
             if (str.IsEmptyOrWhiteSpace())
             {
-                throw new ArgumentException("The string cannot be empty or only contain white space.", strName);
+                throw new ArgumentEmptyException(strName);
             }
         }
 
