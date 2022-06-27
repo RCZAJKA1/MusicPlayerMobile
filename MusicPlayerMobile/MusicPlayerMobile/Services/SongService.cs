@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -42,7 +43,12 @@
             cancellationToken.ThrowIfCancellationRequested();
 
             List<Song> allSongs = new List<Song>();
-            List<string> songFiles = await this._fileService.GetFileNamesAsync(FolderPaths.MusicFolderPath).ConfigureAwait(false) as List<string>;
+            IEnumerable<string> songsEnumerable = await this._fileService.GetFileNamesAsync(FolderPaths.MusicFolderPath).ConfigureAwait(false);
+            if (songsEnumerable == null)
+            {
+                throw new InvalidOperationException("The songs could not be retrieved from the device storage.");
+            }
+            List<string> songFiles = songsEnumerable.ToList();
             songFiles.Sort();
             for (int i = 0; i < songFiles.Count; i++)
             {

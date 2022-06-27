@@ -68,11 +68,14 @@
         /// </summary>
         public BaseViewModel()
         {
+            this.MediaPlayer = new MediaPlayer();
             this.SongHistory = new List<int>();
             this.SongTappedCommand = new Command<Song>(this.OnSongSelected);
             this.PrevButtonClickedCommand = new Command(this.OnPrevButtonClicked);
             this.PlayButtonClickedCommand = new Command(this.OnPlayButtonClicked);
             this.NextButtonClickedCommand = new Command(this.OnNextButtonClicked);
+
+            this.MediaPlayer.Completion += this.PlayRandomAfterCompleted;
         }
 
         /// <summary>
@@ -337,5 +340,15 @@
         }
 
         #endregion
+
+        /// <summary>
+        ///     Plays a random song after each song is played to completion.
+        /// </summary>
+        /// <param name="sender">The sender object.</param>
+        /// <param name="e">The event arguments.</param>
+        private void PlayRandomAfterCompleted(object sender, EventArgs e)
+        {
+            this.PlayRandomSong();
+        }
     }
 }

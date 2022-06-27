@@ -7,8 +7,6 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Android.Media;
-
     using MusicPlayerMobile.Models;
     using MusicPlayerMobile.Services;
 
@@ -53,7 +51,6 @@
             #endregion
 
             this.AllSongs = new List<Song>();
-            this.MediaPlayer = new MediaPlayer();
             this.SongHistoryPtr = -1;
         }
 
