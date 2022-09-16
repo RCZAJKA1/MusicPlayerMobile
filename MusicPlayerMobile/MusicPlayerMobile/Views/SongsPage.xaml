@@ -71,7 +71,7 @@
         <Button Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Command="{Binding PrevButtonClickedCommand}" Margin="10"/>
         <Button Text="Play/Pause" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="40" Command="{Binding PlayButtonClickedCommand}" />
+                BorderWidth="1" CornerRadius="40" Command="{Binding PlayButtonClickedCommand}" BackgroundColor="{Binding PlayButtonBackgroundColor}" />
         <Button Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Command="{Binding NextButtonClickedCommand}" Margin="10"/>
     </Grid>

@@ -19,6 +19,16 @@
     public class BaseViewModel : INotifyPropertyChanged
     {
         /// <summary>
+        ///     The color designating that the media player is playing.
+        /// </summary>
+        private readonly Color IsPlayingColor = Color.Green;
+
+        /// <summary>
+        ///     The color designating that the media player is not playing.
+        /// </summary>
+        private readonly Color IsNotPlayingColor = Color.FromHex("#2196F3");
+
+        /// <summary>
         ///     The is busy.
         /// </summary>
         private bool _isBusy = false;
@@ -59,6 +69,11 @@
         private string _nowPlayingLabelText;
 
         /// <summary>
+        ///     The play button background color.
+        /// </summary>
+        private Color _playButtonBackgroundColor;
+
+        /// <summary>
         ///     The song history.
         /// </summary>
         private List<int> _songHistory;
@@ -74,6 +89,7 @@
             this.PrevButtonClickedCommand = new Command(this.OnPrevButtonClicked);
             this.PlayButtonClickedCommand = new Command(this.OnPlayButtonClicked);
             this.NextButtonClickedCommand = new Command(this.OnNextButtonClicked);
+            this.PlayButtonBackgroundColor = this.IsNotPlayingColor;
 
             this.MediaPlayer.Completion += this.PlayRandomAfterCompleted;
         }
@@ -103,6 +119,15 @@
         {
             get => this._nowPlayingLabelText;
             set => this.SetProperty(ref this._nowPlayingLabelText, value);
+        }
+
+        /// <summary>
+        ///     Gets and sets the play button background color.
+        /// </summary>
+        public Color PlayButtonBackgroundColor
+        {
+            get => this._playButtonBackgroundColor;
+            set => this.SetProperty(ref this._playButtonBackgroundColor, value);
         }
 
         /// <summary>
@@ -254,6 +279,7 @@
             if (this._mediaPlayer.IsPlaying)
             {
                 this._mediaPlayer.Pause();
+                this.PlayButtonBackgroundColor = this.IsNotPlayingColor;
                 return;
             }
 
@@ -264,6 +290,7 @@
             }
 
             this._mediaPlayer.Start();
+            this.PlayButtonBackgroundColor = this.IsPlayingColor;
         }
 
         /// <summary>
@@ -294,10 +321,19 @@
         /// </summary>
         private void PlayRandomSong()
         {
+            if (this.SongHistory.Count == this._allSongs.Count)
+            {
+                this.SongHistory.Clear();
+            }
+
             Random random = new Random();
             int randomSongId = random.Next(0, this._allSongs.Count - 1);
-            Song nextSong = this._allSongs[randomSongId];
+            while (this.SongHistory.Contains(randomSongId))
+            {
+                randomSongId = random.Next(0, this._allSongs.Count - 1);
+            }
 
+            Song nextSong = this._allSongs[randomSongId];
             this.SongHistory.Add(nextSong.Id);
             this._songHistoryPtr++;
 
@@ -319,6 +355,7 @@
 
             Device.BeginInvokeOnMainThread(() =>
             {
+                this.PlayButtonBackgroundColor = this.IsPlayingColor;
                 this.NowPlayingLabelText = song.Name;
             });
         }
