@@ -321,10 +321,19 @@
         /// </summary>
         private void PlayRandomSong()
         {
+            if (this.SongHistory.Count == this._allSongs.Count)
+            {
+                this.SongHistory.Clear();
+            }
+
             Random random = new Random();
             int randomSongId = random.Next(0, this._allSongs.Count - 1);
-            Song nextSong = this._allSongs[randomSongId];
+            while (this.SongHistory.Contains(randomSongId))
+            {
+                randomSongId = random.Next(0, this._allSongs.Count - 1);
+            }
 
+            Song nextSong = this._allSongs[randomSongId];
             this.SongHistory.Add(nextSong.Id);
             this._songHistoryPtr++;
 
