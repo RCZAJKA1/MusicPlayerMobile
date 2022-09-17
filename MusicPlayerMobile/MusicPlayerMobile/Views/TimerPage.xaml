@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MusicPlayerMobile.Views.TimerPage"
+             xmlns:vm="clr-namespace:MusicPlayerMobile.ViewModels"
+             xmlns:model="clr-namespace:MusicPlayerMobile.Models"
+             x:DataType="vm:TimerViewModel"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+        <vm:TimerViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <!--Last row is to pad above the device bottom toolbar-->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--Row 1 - Timer Labels and Buttons-->
+        <!--<Label Name="CurrentTimeMinutesLabel" BindingContext="{Binding CurrentTimeMinutes}}"/>-->
+        <Button Text="Prev" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="10" Command="{Binding StartTimerCommand}" Margin="10"/>
+
+        <!--Row 2 - Music Player Buttons-->
+        <Label Text="{Binding NowPlayingLabelText}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
+               TextColor="Black" FontSize="15" Padding="10"/>
+        <Button Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="10" Command="{Binding PrevButtonClickedCommand}" Margin="10"/>
+        <Button Text="Play/Pause" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="40" Command="{Binding PlayButtonClickedCommand}" BackgroundColor="{Binding PlayButtonBackgroundColor}" />
+        <Button Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
+                BorderWidth="1" CornerRadius="10" Command="{Binding NextButtonClickedCommand}" Margin="10"/>
+    </Grid>
+</ContentPage>
