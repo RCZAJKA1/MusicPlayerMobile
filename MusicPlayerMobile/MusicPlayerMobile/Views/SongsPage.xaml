@@ -18,7 +18,7 @@
     </ContentPage.Resources>
 
     <Grid>
-        <Grid.RowDefinitions >
+        <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -38,36 +38,31 @@
                         Grid.Row="0"
                         Grid.ColumnSpan="3">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Margin="-5" BorderColor="Black" BackgroundColor="LightGray" >
-                        <StackLayout x:DataType="model:Song">
+                <DataTemplate>                    
+                    <StackLayout x:DataType="model:Song" Padding="4">
+                        <Frame HasShadow="True" CornerRadius="20" BackgroundColor="LightGray">
                             <Label Text="{Binding Name}"
-                                        LineBreakMode="NoWrap"
-                                        Style="{DynamicResource ListItemTextStyle}"
-                                        TextColor="Black"
-                                        FontSize="16" />
-                            <Label Text="{Binding Description}"
-                                        LineBreakMode="NoWrap"
-                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                        TextColor="Black"
-                                        FontSize="13" 
-                                        Margin="-6"/>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer
+                                            LineBreakMode="NoWrap"
+                                            Style="{DynamicResource ListItemTextStyle}"
+                                            TextColor="Black"
+                                            FontSize="18" />
+                        </Frame>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
                                             NumberOfTapsRequired="1"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SongsViewModel}}, Path=SongTappedCommand}"
                                             CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </Frame>
+                            </TapGestureRecognizer>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>                    
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
         <!--Row 2 - Buttons-->
-        <Label Text="{Binding NowPlayingLabelText}" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" 
-               TextColor="Black" FontSize="15" Padding="10"/>
+        <Frame Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" >
+            <Label Text="{Binding NowPlayingLabelText}" TextColor="Black" FontSize="18" />
+        </Frame>
         <Button Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
                 BorderWidth="1" CornerRadius="10" Command="{Binding PrevButtonClickedCommand}" Margin="10"/>
         <Button Text="Play/Pause" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
