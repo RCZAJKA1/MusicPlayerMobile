@@ -22,7 +22,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <!--Last row is to pad above the device bottom toolbar-->
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -36,15 +35,16 @@
                         ItemsSource="{Binding AllSongs}"
                         SelectionMode="None"
                         Grid.Row="0"
-                        Grid.ColumnSpan="3">
+                        Grid.ColumnSpan="3"
+                        BackgroundColor="Black">
             <CollectionView.ItemTemplate>
-                <DataTemplate>                    
-                    <StackLayout x:DataType="model:Song" Padding="4">
-                        <Frame HasShadow="True" CornerRadius="20" BackgroundColor="LightGray">
+                <DataTemplate>
+                    <StackLayout x:DataType="model:Song">
+                        <Frame BackgroundColor="Black">
                             <Label Text="{Binding Name}"
                                             LineBreakMode="NoWrap"
                                             Style="{DynamicResource ListItemTextStyle}"
-                                            TextColor="Black"
+                                            TextColor="White"
                                             FontSize="18" />
                         </Frame>
                         <StackLayout.GestureRecognizers>
@@ -59,15 +59,18 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!--Row 2 - Buttons-->
-        <Frame Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" >
-            <Label Text="{Binding NowPlayingLabelText}" TextColor="Black" FontSize="18" />
+        <!--Row 2 - Current Song-->
+        <Frame Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" BackgroundColor="Gray">
+            <Label Text="{Binding NowPlayingLabelText}" TextColor="Black" FontSize="16" />
         </Frame>
+
+        <!--Row 3 - Buttons-->
         <Button Text="Prev" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="10" Command="{Binding PrevButtonClickedCommand}" Margin="10"/>
-        <Button Text="Play/Pause" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="40" Command="{Binding PlayButtonClickedCommand}" BackgroundColor="{Binding PlayButtonBackgroundColor}" />
+                BorderWidth="1" CornerRadius="10" Command="{Binding PrevButtonClickedCommand}" Margin="5"/>
+        <Button Text="Play/Pause" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" Margin="5" 
+                BorderWidth="1" CornerRadius="40" Command="{Binding PlayButtonClickedCommand}" 
+                BackgroundColor="{Binding PlayButtonBackgroundColor}" />
         <Button Text="Next" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="2" BorderColor="Black" 
-                BorderWidth="1" CornerRadius="10" Command="{Binding NextButtonClickedCommand}" Margin="10"/>
+                BorderWidth="1" CornerRadius="10" Command="{Binding NextButtonClickedCommand}" Margin="5"/>
     </Grid>
 </ContentPage>

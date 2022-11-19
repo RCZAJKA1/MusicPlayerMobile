@@ -29,11 +29,6 @@
         private readonly Color IsNotPlayingColor = Color.FromHex("#2196F3");
 
         /// <summary>
-        ///     The is busy.
-        /// </summary>
-        private bool _isBusy = false;
-
-        /// <summary>
         ///     The title.
         /// </summary>
         private string _title = string.Empty;
@@ -92,15 +87,6 @@
             this.PlayButtonBackgroundColor = this.IsNotPlayingColor;
 
             this.MediaPlayer.Completion += this.PlayRandomAfterCompleted;
-        }
-
-        /// <summary>
-        ///     Gets and sets the is busy.
-        /// </summary>
-        protected bool IsBusy
-        {
-            get => this._isBusy;
-            set => this.SetProperty(ref this._isBusy, value);
         }
 
         /// <summary>

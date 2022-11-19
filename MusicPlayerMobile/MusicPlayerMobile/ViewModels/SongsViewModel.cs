@@ -33,7 +33,7 @@
             #region Testing
 
             //List<Song> songList = new List<Song>();
-            //for (int i = 0; i < 10; i++)
+            //for (int i = 1; i < 11; i++)
             //{
             //    Song song = new Song()
             //    {
@@ -60,8 +60,6 @@
         /// <returns>The <see cref="Task"/> that completed loading the songs.</returns>
         private async Task LoadAllSongs(CancellationToken cancellationToken = default)
         {
-            this.IsBusy = true;
-
             cancellationToken.ThrowIfCancellationRequested();
 
             try
@@ -79,10 +77,6 @@
                 Debug.WriteLine(ex);
                 throw;
             }
-            finally
-            {
-                this.IsBusy = false;
-            }
         }
 
         /// <summary>
@@ -90,8 +84,6 @@
         /// </summary>
         public async Task OnAppearingAsync(CancellationToken cancellationToken = default)
         {
-            this.IsBusy = true;
-
             cancellationToken.ThrowIfCancellationRequested();
 
             await this.LoadAllSongs(cancellationToken);

@@ -134,8 +134,6 @@
         /// <returns>The <see cref="Task"/> that completed loading the playlists.</returns>
         private async Task LoadAllPlaylistsAsync(CancellationToken cancellationToken = default)
         {
-            this.IsBusy = true;
-
             cancellationToken.ThrowIfCancellationRequested();
 
             try
@@ -152,10 +150,6 @@
             {
                 Debug.WriteLine(ex);
                 throw;
-            }
-            finally
-            {
-                this.IsBusy = false;
             }
         }
 

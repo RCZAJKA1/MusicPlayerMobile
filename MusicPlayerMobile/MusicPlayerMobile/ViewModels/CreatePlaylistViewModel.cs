@@ -142,8 +142,6 @@
         /// <returns>The <see cref="Task"/> that completed loading the selectable songs.</returns>
         public async Task LoadSelectableSongsAsync(CancellationToken cancellationToken = default)
         {
-            this.IsBusy = true;
-
             cancellationToken.ThrowIfCancellationRequested();
 
             #region Testing
